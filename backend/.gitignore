@@ -12,6 +12,9 @@
 /build
 
 # misc
+# dotenv environment variables file
+.env
+.env.test
 .DS_Store
 .env.local
 .env.development.local
