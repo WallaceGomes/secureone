@@ -11,8 +11,8 @@ const activeUsersSchema = new Schema({
 	phone: { type: String, required: true },
 	login: { type: String, required: true },
 	userId: { type: String, required: true },
-	created_at: { type: String, required: true },
-	updated_at: { type: String, required: true },
+	created_at: { type: Date },
+	updated_at: { type: Date },
 });
 
 activeUsersSchema.plugin(uniqueValidator);

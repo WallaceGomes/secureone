@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const HttpError = require('../models/http-error');
+const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
 	let users;
@@ -237,6 +238,7 @@ exports.delete = async (req, res, next) => {
 		await user.remove({ session: sess });
 		await sess.commitTransaction();
 	} catch (err) {
+		console.error(err);
 		const error = new HttpError('Error deleting the user, DB session', 500);
 		return next(error);
 	}
