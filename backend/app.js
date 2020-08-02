@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
+const userRoutes = require('./routes/user-routes');
 
 const mongoDB = require('./mongodb/mongodb.connect');
 const app = express();
@@ -10,6 +11,8 @@ mongoDB.connect();
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use('/api/users', userRoutes);
 
 //error middleware
 app.use((error, req, res, next) => {

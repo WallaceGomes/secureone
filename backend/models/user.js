@@ -11,7 +11,7 @@ const userSchema = new Schema({
 	role: { type: String },
 	address: { type: String },
 	cnpj: { type: String },
-	status: { type: Boolean },
+	status: { type: String },
 	contract: { type: String },
 	due_date: { type: Date },
 	created_at: { type: Date },

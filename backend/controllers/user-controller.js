@@ -6,7 +6,7 @@ const HttpError = require('../models/http-error');
 exports.index = async (req, res, next) => {
 	let users;
 	try {
-		users = await user.find({ role: 'client' }, '-password');
+		users = await User.find({ role: 'client' }, '-password');
 	} catch (err) {
 		console.error(err);
 		const error = new HttpError('Could not find any user!', 500);
@@ -140,9 +140,8 @@ exports.login = async (req, res, next) => {
 exports.changePassword = async (req, res, next) => {
 	const { email, password } = req.body;
 
-	let user;
 	try {
-		user = await User.findOne({ email: email });
+		await User.findOne({ email: email });
 	} catch (err) {
 		const error = new HttpError('Unable to find the user', 500);
 		return next(error);
