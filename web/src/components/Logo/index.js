@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { MainLogo } from './styles';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 
 //aqui dá pra fazer a logo dinâmica
