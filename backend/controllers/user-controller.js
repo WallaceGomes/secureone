@@ -89,6 +89,7 @@ exports.login = async (req, res, next) => {
 		user = await User.findOne({ email: email });
 		if (!user) {
 			const error = new HttpError('Login failed, invalid credentials', 403);
+			return next(error);
 		}
 	} catch (err) {
 		console.error(err);

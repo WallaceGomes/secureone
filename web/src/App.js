@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 
 import LoadingSpinner from './components/LoadingSpinner';
+import { AuthContext } from './util/AuthContext';
 
 import './App.css';
 
@@ -76,6 +77,10 @@ const App = () => {
 				storedData.userRole,
 			);
 		}
+
+		//!!!!!!NOTA!!!!!!
+		//TIRAR ISSO DAQUI DEPOIS
+		setUserRole('admin');
 	}, [login]);
 
 	let routes;
@@ -86,6 +91,9 @@ const App = () => {
 			<Switch>
 				<Route path="/" exact>
 					<Home />
+				</Route>
+				<Route path="/login" exact>
+					<Login />
 				</Route>
 				<Redirect to="/" />
 			</Switch>
@@ -102,19 +110,30 @@ const App = () => {
 	}
 
 	return (
-		<Router>
-			<main>
-				<Suspense
-					fallback={
-						<div className="center">
-							<LoadingSpinner />
-						</div>
-					}
-				>
-					{routes}
-				</Suspense>
-			</main>
-		</Router>
+		<AuthContext.Provider
+			value={{
+				isLoggedIn: !!token,
+				token: token,
+				userId: userId,
+				userRole: userRole,
+				login: login,
+				logout: logout,
+			}}
+		>
+			<Router>
+				<main>
+					<Suspense
+						fallback={
+							<div className="center">
+								<LoadingSpinner />
+							</div>
+						}
+					>
+						{routes}
+					</Suspense>
+				</main>
+			</Router>
+		</AuthContext.Provider>
 	);
 };
 

@@ -7,8 +7,10 @@ export const MainLogo = styled.button`
 	background: rgba(0, 0, 0, 0);
 	border: none;
 
+	width: 15%;
+
 	img {
-		width: 90px;
+		width: 170px;
 		height: 70px;
 		border-radius: 5px;
 		padding-left: 20px;

@@ -1,14 +1,16 @@
 import React from 'react';
 
 import Menu from '../../components/Menu';
-import { Container } from './styles';
+import { Container, InformationContainer } from './styles';
 
 const Home = () => {
 	return (
 		<>
 			<Container>
 				<Menu />
-				<div>Hello World</div>
+				<InformationContainer>
+					<div>hello</div>
+				</InformationContainer>
 			</Container>
 		</>
 	);
