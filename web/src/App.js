@@ -14,6 +14,8 @@ import './App.css';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
+const Admin = React.lazy(() => import('./pages/Admin'));
+const NewClient = React.lazy(() => import('./pages/NewClient'));
 
 let logoutTimer;
 
@@ -94,6 +96,12 @@ const App = () => {
 				</Route>
 				<Route path="/login" exact>
 					<Login />
+				</Route>
+				<Route path="/admin" exact>
+					<Admin />
+				</Route>
+				<Route path="/newclient">
+					<NewClient />
 				</Route>
 				<Redirect to="/" />
 			</Switch>

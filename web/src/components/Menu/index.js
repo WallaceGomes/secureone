@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Wraper, MenuUl, MenuItem } from './styles';
 //import Logo from '../Logo';
 import logo from '../../assets/logo.png';
@@ -14,10 +14,10 @@ const Menu = () => {
 	if (auth.userRole === 'admin') {
 		menu = (
 			<MenuUl>
-				<Link to="/">
+				<Link to="/newclient">
 					<MenuItem>Novo Cliente</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/admin">
 					<MenuItem>Administrar Clientes</MenuItem>
 				</Link>
 				<Link to="/">
@@ -30,7 +30,7 @@ const Menu = () => {
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
 				<Link to="/">
-					<MenuItem>Máquinas /Servidores /Switch</MenuItem>
+					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
 			</MenuUl>
 		);
@@ -52,7 +52,7 @@ const Menu = () => {
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
 				<Link to="/">
-					<MenuItem>Máquinas /Servidores /Switch</MenuItem>
+					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
 			</MenuUl>
 		);
