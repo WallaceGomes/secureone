@@ -2,23 +2,23 @@ import styled from 'styled-components';
 
 export const Label = styled.label`
 	display: flex;
+	flex-direction: column;
 	position: relative;
 	margin-bottom: 2rem;
 
 	input {
-		background-color: #00001a;
-		border: 2px solid #cccc00;
+		background-color: #fff;
+		border: 2px solid #808080;
 		border-radius: 3px;
 		padding: 16px;
-		color: #fff;
 		font-size: 16px;
 		transition: 180ms ease-in-out;
 		&::placeholder {
-			color: rgba(255, 255, 255, 0.4);
+			color: rgba(0, 0, 0, 1);
 		}
 
 		&:focus {
-			border: 2px solid;
+			border: 2px solid #333333;
 		}
 	}
 `;

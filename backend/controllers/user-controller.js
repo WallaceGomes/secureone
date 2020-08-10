@@ -18,11 +18,10 @@ exports.index = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-	//Mudar@123 senha para criar novo cliente
 	const {
 		name,
 		email,
-		password,
+		password = process.env.DEFAULT_PASS,
 		role = 'client',
 		confirmed = false,
 		address,
