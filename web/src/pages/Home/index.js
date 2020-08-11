@@ -8,9 +8,6 @@ const Home = () => {
 		<>
 			<Container>
 				<Menu />
-				<InformationContainer>
-					<div>hello</div>
-				</InformationContainer>
 			</Container>
 		</>
 	);

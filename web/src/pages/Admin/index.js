@@ -36,16 +36,18 @@ const Admin = () => {
 				</Header>
 				{isLoading && <LoadingSpinner />}
 				<ClientsTable>
-					<tr>
-						<th>Nome</th>
-						<th>Email</th>
-						<th>CNPJ</th>
-						<th>Status</th>
-						<th>Contrato</th>
-						<th>Vencimento</th>
-						<th>Editar</th>
-						<th>Deletar</th>
-					</tr>
+					<tbody>
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>CNPJ</th>
+							<th>Status</th>
+							<th>Contrato</th>
+							<th>Vencimento</th>
+							<th>Editar</th>
+							<th>Deletar</th>
+						</tr>
+					</tbody>
 					{users &&
 						users.map((user) => {
 							const dueDate = new Date(user.due_date);
@@ -54,6 +56,7 @@ const Admin = () => {
 							const year = dueDate.getFullYear();
 							const dateString = date + '/' + (month + 1) + '/' + year;
 
+							//erro causado por falta de um tbody em volta da tabela
 							return (
 								<tr key={user._id}>
 									<td>{user.name}</td>
