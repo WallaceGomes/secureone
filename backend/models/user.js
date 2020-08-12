@@ -13,7 +13,7 @@ const userSchema = new Schema({
 	cnpj: { type: String },
 	status: { type: String },
 	contract: { type: String },
-	due_date: { type: Date },
+	due_date: { type: String },
 	created_at: { type: Date },
 	updated_at: { type: Date },
 });

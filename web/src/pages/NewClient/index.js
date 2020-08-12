@@ -23,7 +23,8 @@ const NewClient = () => {
 	const newClientSubmitHandler = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await sendRequest(
+			//falta status
+			await sendRequest(
 				'http://localhost:3333/api/users/create',
 				'POST',
 				JSON.stringify({
@@ -32,6 +33,7 @@ const NewClient = () => {
 					address: clientAddress,
 					cnpj: clientCNPJ,
 					contract: clientContract,
+					status: 'Ativo',
 					due_date: clientDueDate,
 				}),
 				{

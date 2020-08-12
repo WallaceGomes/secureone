@@ -1,14 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
-import { Container, UsersContainer, Header, ClientsTable } from './styles';
+import {
+	Container,
+	UsersContainer,
+	Header,
+	ClientsTable,
+	Card,
+} from './styles';
 import Menu from '../../components/Menu';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useHttpClient } from '../../hooks/http-hook';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const Admin = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 	const [users, setUsers] = useState([]);
+
+	const [editClientName, setEditClientName] = useState('');
+	const [editClientEmail, setEditClientEmail] = useState('');
+	const [editClientAddress, setEditClientAddress] = useState('');
+	const [editClientCNPJ, setEditClientCNPJ] = useState('');
+	const [editClientContract, setEditClientContract] = useState('');
+	// const [clientActive, setEditClientActive] = useState('');
+	const [editClientDueDate, setEditClientDueDate] = useState('');
+	const [editClietID, setEditClientID] = useState(Number);
+
+	const [isEditMode, setIsEditMode] = useState(false);
 
 	//falta auth
 	useEffect(() => {
@@ -19,13 +38,156 @@ const Admin = () => {
 		);
 	}, []);
 
+	/**
+
+	const now = new Date(user.due_date);
+
+			const day = ('0' + now.getDate()).slice(-2);
+			const month = ('0' + (now.getMonth() + 1)).slice(-2);
+
+			const today = now.getFullYear() + '-' + month + '-' + day;
+
+			console.log(day);
+	 */
+
 	const switchEditModeHandler = (user) => {
-		console.log('ok');
+		if (user) {
+			setEditClientAddress(user.address);
+			setEditClientCNPJ(user.cnpj);
+			setEditClientEmail(user.email);
+			setEditClientName(user.name);
+			setEditClientID(user._id);
+			setEditClientContract(user.contract);
+			console.log(user.due_date);
+			setEditClientDueDate(user.due_date);
+		}
+		setIsEditMode((prevMode) => !prevMode);
 	};
 
-	const deleteUserHandler = async (userId) => {
-		console.log(userId);
+	const editUserSubmitHandler = async (event) => {
+		event.preventDefault();
+		try {
+			//vai precisar disso aqui depois
+			/**
+			 * {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${storedData.token}`,
+				},
+			 */
+			const response = await sendRequest(
+				`http://localhost:3333/api/users/clients/${editClietID}`,
+				'PATCH',
+				JSON.stringify({
+					name: editClientName,
+					email: editClientEmail,
+					address: editClientAddress,
+					cnpj: editClientCNPJ,
+					contract: editClientContract,
+					status: 'Ativo',
+					due_date: editClientDueDate,
+				}),
+				{
+					'Content-Type': 'application/json',
+				},
+			);
+			const editedUser = {
+				_id: editClietID,
+				name: editClientName,
+				email: editClientEmail,
+				address: editClientAddress,
+				cnpj: editClientCNPJ,
+				contract: editClientContract,
+				due_date: editClientDueDate,
+				status: 'Ativo',
+			};
+			const index = users.findIndex((user) => user._id === editClietID);
+			if (index !== -1) {
+				const auxUsers = [...users];
+				auxUsers[index] = editedUser;
+				setUsers(auxUsers);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+		switchEditModeHandler();
 	};
+
+	const deleteClientHandler = async (editClietID, event) => {
+		event.preventDefault();
+		try {
+			const response = await sendRequest(
+				`http://localhost:3333/api/users/clients/${editClietID}`,
+				'DELETE',
+				null,
+			);
+			const index = users.findIndex((user) => user._id === editClietID);
+			if (index !== -1) {
+				const newUsers = [...users];
+				newUsers.splice(index, 1);
+				setUsers(newUsers);
+			}
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+			alert(err.message);
+		}
+	};
+
+	if (isEditMode) {
+		return (
+			<Container>
+				<Menu />
+				<Card>
+					<form onSubmit={editUserSubmitHandler}>
+						<h1>Editar Cliente</h1>
+						<Input
+							name="editClientName"
+							type="text"
+							value={editClientName}
+							placeholder="Nome"
+							setValue={setEditClientName}
+						/>
+						<Input
+							name="editClientEmail"
+							type="email"
+							value={editClientEmail}
+							placeholder="E-mail"
+							setValue={setEditClientEmail}
+						/>
+						<Input
+							name="editClientAddress"
+							type="text"
+							value={editClientAddress}
+							placeholder="Endereço"
+							setValue={setEditClientAddress}
+						/>
+						<Input
+							name="editClientCNPJ"
+							type="text"
+							value={editClientCNPJ}
+							placeholder="CNPJ"
+							setValue={setEditClientCNPJ}
+						/>
+						<Input
+							name="editClientContract"
+							type="text"
+							value={editClientContract}
+							placeholder="Contrato"
+							setValue={setEditClientContract}
+						/>
+						<Input
+							name="editClientDueDate"
+							type="date"
+							value={editClientDueDate}
+							placeholder="Data de Vencimento do Contrato"
+							setValue={setEditClientDueDate}
+						/>
+						<Button type="submit"> Editar </Button>
+					</form>
+				</Card>
+			</Container>
+		);
+	}
 
 	return (
 		<Container>
@@ -54,7 +216,7 @@ const Admin = () => {
 							const date = dueDate.getDate();
 							const month = dueDate.getMonth();
 							const year = dueDate.getFullYear();
-							const dateString = date + '/' + (month + 1) + '/' + year;
+							const dateString = date + 1 + '/' + (month + 1) + '/' + year;
 
 							//erro causado por falta de um tbody em volta da tabela
 							return (
@@ -74,7 +236,7 @@ const Admin = () => {
 									</td>
 									<td>
 										<AiFillDelete
-											onClick={(event) => deleteUserHandler(user._id, event)}
+											onClick={(event) => deleteClientHandler(user._id, event)}
 											style={{ fill: 'red' }}
 											size={20}
 										/>
