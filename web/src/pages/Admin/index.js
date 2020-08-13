@@ -13,6 +13,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import { useHttpClient } from '../../hooks/http-hook';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Select from '../../components/Select';
 
 const Admin = () => {
 	const { sendRequest, isLoading } = useHttpClient();
@@ -23,7 +24,7 @@ const Admin = () => {
 	const [editClientAddress, setEditClientAddress] = useState('');
 	const [editClientCNPJ, setEditClientCNPJ] = useState('');
 	const [editClientContract, setEditClientContract] = useState('');
-	// const [clientActive, setEditClientActive] = useState('');
+	const [editClientActive, setEditClientActive] = useState('');
 	const [editClientDueDate, setEditClientDueDate] = useState('');
 	const [editClietID, setEditClientID] = useState(Number);
 
@@ -57,8 +58,8 @@ const Admin = () => {
 			setEditClientEmail(user.email);
 			setEditClientName(user.name);
 			setEditClientID(user._id);
+			setEditClientActive(user.status);
 			setEditClientContract(user.contract);
-			console.log(user.due_date);
 			setEditClientDueDate(user.due_date);
 		}
 		setIsEditMode((prevMode) => !prevMode);
@@ -83,7 +84,7 @@ const Admin = () => {
 					address: editClientAddress,
 					cnpj: editClientCNPJ,
 					contract: editClientContract,
-					status: 'Ativo',
+					status: editClientActive,
 					due_date: editClientDueDate,
 				}),
 				{
@@ -98,7 +99,7 @@ const Admin = () => {
 				cnpj: editClientCNPJ,
 				contract: editClientContract,
 				due_date: editClientDueDate,
-				status: 'Ativo',
+				status: editClientActive,
 			};
 			const index = users.findIndex((user) => user._id === editClietID);
 			if (index !== -1) {
@@ -167,6 +168,12 @@ const Admin = () => {
 							value={editClientCNPJ}
 							placeholder="CNPJ"
 							setValue={setEditClientCNPJ}
+						/>
+						<Select
+							name="editClientActive"
+							type="select"
+							value={editClientActive}
+							setValue={setEditClientActive}
 						/>
 						<Input
 							name="editClientContract"

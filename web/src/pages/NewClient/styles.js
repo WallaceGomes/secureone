@@ -8,7 +8,7 @@ export const Card = styled.div`
 	width: 35%;
 	margin-left: 12%;
 	margin-top: 50px;
-	height: 80vh;
+	height: 90vh;
 	position: relative;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 	border-radius: 6px;
@@ -20,7 +20,7 @@ export const Card = styled.div`
 		margin: 2rem;
 	}
 
-	Input {
+	Select Input {
 		width: 90%;
 		margin-left: 2rem;
 		margin-right: 2rem;

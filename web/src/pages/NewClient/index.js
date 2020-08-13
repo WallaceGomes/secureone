@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 import { useHistory } from 'react-router-dom';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import Select from '../../components/Select';
 
 const NewClient = () => {
 	const [clientName, setClientName] = useState('');
@@ -14,7 +15,7 @@ const NewClient = () => {
 	const [clientAddress, setClientAddress] = useState('');
 	const [clientCNPJ, setClientCNPJ] = useState('');
 	const [clientContract, setClientContract] = useState('');
-	// const [clientActive, SetClientActive] = useState('');
+	const [clientActive, setClientActive] = useState('');
 	const [clientDueDate, setClientDueDate] = useState('');
 
 	const history = useHistory();
@@ -33,7 +34,7 @@ const NewClient = () => {
 					address: clientAddress,
 					cnpj: clientCNPJ,
 					contract: clientContract,
-					status: 'Ativo',
+					status: clientActive,
 					due_date: clientDueDate,
 				}),
 				{
@@ -80,6 +81,12 @@ const NewClient = () => {
 						value={clientCNPJ}
 						placeholder="CNPJ"
 						setValue={setClientCNPJ}
+					/>
+					<Select
+						name="clientActive"
+						type="select"
+						value={clientActive}
+						setValue={setClientActive}
 					/>
 					<Input
 						name="clientContract"
