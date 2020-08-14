@@ -5,7 +5,7 @@ const activeUserController = require('../controllers/activeUser-controller');
 
 router.post('/create', activeUserController.create);
 
-router.get('/:userId', activeUserController.index);
+router.get('/:clientId', activeUserController.index);
 
 router.patch('/:activeUserId', activeUserController.update);
 

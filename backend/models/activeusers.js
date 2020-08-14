@@ -10,7 +10,7 @@ const activeUsersSchema = new Schema({
 	email: { type: String, required: true, unique: true },
 	phone: { type: String, required: true },
 	login: { type: String, required: true },
-	userId: { type: String, required: true },
+	clientId: { type: String, required: true },
 	created_at: { type: Date },
 	updated_at: { type: Date },
 });

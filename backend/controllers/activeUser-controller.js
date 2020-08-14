@@ -6,11 +6,13 @@ const ActiveUser = require('../models/activeUsers');
 const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
-	const { userId } = req.params;
+	const { clientId } = req.params;
+	console.log(req.params);
 
 	let activeUsers;
 	try {
-		activeUsers = await ActiveUser.find({ userId: userId });
+		console.log(clientId);
+		activeUsers = await ActiveUser.find({ clientId: clientId });
 		if (!activeUsers) {
 			return res.status(200).send('Not able to find any user');
 		}
@@ -32,11 +34,11 @@ exports.create = async (req, res, next) => {
 		tvpassword,
 		phone,
 		login,
-		userId,
+		clientId,
 	} = req.body;
 
 	try {
-		const checkUser = await User.findOne({ _id: userId });
+		const checkUser = await User.findOne({ _id: clientId });
 		if (!checkUser) {
 			const error = new HttpError('User not exists', 422);
 			return next(error);
@@ -55,7 +57,7 @@ exports.create = async (req, res, next) => {
 		tvpassword,
 		phone,
 		login,
-		userId,
+		clientId,
 	});
 
 	try {

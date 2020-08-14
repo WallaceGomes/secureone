@@ -27,22 +27,22 @@ const ActiveUsers = () => {
 				setClients(response);
 			},
 		);
-	}, []);
+	}, [sendRequest]);
 
 	const newActiveUserSubmitHandler = async (event) => {
 		event.preventDefault();
 		try {
 			//tem que mudar no backend a rota
-			await sendRequest(
-				'http://localhost:3333/api/client/users/active/create',
+			const response = await sendRequest(
+				'http://localhost:3333/api/active/create',
 				'POST',
 				JSON.stringify({
 					clientId: clientId,
 					email: email,
 					name: name,
 					password: password,
-					teamViewer: teamViewer,
-					tvPassword: tvPassword,
+					teamviewer: teamViewer,
+					tvpassword: tvPassword,
 					phone: phone,
 					login: login,
 				}),
@@ -50,6 +50,8 @@ const ActiveUsers = () => {
 					'Content-Type': 'application/json',
 				},
 			);
+			console.log(clientId);
+			console.log(response);
 		} catch (err) {
 			console.error(err);
 		}
@@ -61,66 +63,67 @@ const ActiveUsers = () => {
 				<Menu />
 				{isLoading && <LoadingSpinner asOverlay />}
 				<Card>
-					<form onSubmit={newActiveUserSubmitHandler}></form>
-					<h1>Cadastrar novo usuário ativo</h1>
-					<Select
-						name="clients"
-						type="select"
-						value={clientId}
-						options={clients}
-						setValue={setClientId}
-					/>
-					<Input
-						name="name"
-						type="text"
-						value={name}
-						placeholder="Nome"
-						setValue={setName}
-					/>
-					<Input
-						name="email"
-						type="email"
-						value={email}
-						placeholder="E-mail"
-						setValue={setEmail}
-					/>
-					<Input
-						name="password"
-						type="text"
-						value={password}
-						placeholder="Senha"
-						setValue={setPassword}
-					/>
-					<Input
-						name="teamviewer"
-						type="text"
-						value={teamViewer}
-						placeholder="Team Viewer"
-						setValue={setTeamViewer}
-					/>
-					<Input
-						name="tvpassword"
-						type="text"
-						value={tvPassword}
-						placeholder="Senha do Team Viewer"
-						setValue={setTvPassword}
-					/>
-					<Input
-						name="phone"
-						type="text"
-						value={phone}
-						placeholder="Telefone"
-						setValue={setPhone}
-					/>
-					<Input
-						name="login"
-						type="text"
-						value={login}
-						placeholder="Login"
-						setValue={setLogin}
-					/>
+					<form onSubmit={newActiveUserSubmitHandler}>
+						<h1>Cadastrar novo usuário ativo</h1>
+						<Select
+							name="clients"
+							type="select"
+							value={clientId}
+							options={clients}
+							setValue={setClientId}
+						/>
+						<Input
+							name="name"
+							type="text"
+							value={name}
+							placeholder="Nome"
+							setValue={setName}
+						/>
+						<Input
+							name="email"
+							type="email"
+							value={email}
+							placeholder="E-mail"
+							setValue={setEmail}
+						/>
+						<Input
+							name="password"
+							type="text"
+							value={password}
+							placeholder="Senha"
+							setValue={setPassword}
+						/>
+						<Input
+							name="teamviewer"
+							type="text"
+							value={teamViewer}
+							placeholder="Team Viewer"
+							setValue={setTeamViewer}
+						/>
+						<Input
+							name="tvpassword"
+							type="text"
+							value={tvPassword}
+							placeholder="Senha do Team Viewer"
+							setValue={setTvPassword}
+						/>
+						<Input
+							name="phone"
+							type="text"
+							value={phone}
+							placeholder="Telefone"
+							setValue={setPhone}
+						/>
+						<Input
+							name="login"
+							type="text"
+							value={login}
+							placeholder="Login"
+							setValue={setLogin}
+						/>
 
-					<Button type="submit">Cadastrar</Button>
+						<Button type="submit">Cadastrar</Button>
+					</form>
 				</Card>
 			</Container>
 		</>
