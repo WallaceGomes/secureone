@@ -4,7 +4,7 @@ export const Label = styled.label`
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 
 	input {
 		background-color: #fff;

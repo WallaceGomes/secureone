@@ -23,7 +23,7 @@ const Menu = () => {
 				<Link to="/emailaccounts">
 					<MenuItem>Contas Email Ativas</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/activeusers">
 					<MenuItem>Usuários Ativos</MenuItem>
 				</Link>
 				<Link to="/">

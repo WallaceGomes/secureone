@@ -8,12 +8,16 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-const EmailAccounts = () => {
+const ActiveUsers = () => {
 	const [clients, setClients] = useState();
 	const [clientId, setClientId] = useState();
 	const [name, setName] = useState();
 	const [email, setEmail] = useState();
-	const [license, setLicense] = useState();
+	const [password, setPassword] = useState();
+	const [teamViewer, setTeamViewer] = useState();
+	const [tvPassword, setTvPassword] = useState();
+	const [phone, setPhone] = useState();
+	const [login, setLogin] = useState();
 
 	const { sendRequest, isLoading } = useHttpClient();
 
@@ -25,17 +29,22 @@ const EmailAccounts = () => {
 		);
 	}, []);
 
-	const newEmailSubmitHandler = async (event) => {
+	const newActiveUserSubmitHandler = async (event) => {
 		event.preventDefault();
 		try {
+			//tem que mudar no backend a rota
 			await sendRequest(
-				'http://localhost:3333/api/client/users/emails/create',
+				'http://localhost:3333/api/client/users/active/create',
 				'POST',
 				JSON.stringify({
 					clientId: clientId,
 					email: email,
 					name: name,
-					license: license,
+					password: password,
+					teamViewer: teamViewer,
+					tvPassword: tvPassword,
+					phone: phone,
+					login: login,
 				}),
 				{
 					'Content-Type': 'application/json',
@@ -52,8 +61,8 @@ const EmailAccounts = () => {
 				<Menu />
 				{isLoading && <LoadingSpinner asOverlay />}
 				<Card>
-					<form onSubmit={newEmailSubmitHandler}></form>
-					<h1>Cadastrar nova conta de e-email ativa</h1>
+					<form onSubmit={newActiveUserSubmitHandler}></form>
+					<h1>Cadastrar novo usuário ativo</h1>
 					<Select
 						name="clients"
 						type="select"
@@ -70,23 +79,52 @@ const EmailAccounts = () => {
 					/>
 					<Input
 						name="email"
-						type="text"
+						type="email"
 						value={email}
-						placeholder="Email"
+						placeholder="E-mail"
 						setValue={setEmail}
 					/>
 					<Input
-						name="license"
+						name="password"
 						type="text"
-						value={license}
-						placeholder="Licenças"
-						setValue={setLicense}
+						value={password}
+						placeholder="Senha"
+						setValue={setPassword}
 					/>
-					<Button type="submit">Registrar</Button>
+					<Input
+						name="teamviewer"
+						type="text"
+						value={teamViewer}
+						placeholder="Team Viewer"
+						setValue={setTeamViewer}
+					/>
+					<Input
+						name="tvpassword"
+						type="text"
+						value={tvPassword}
+						placeholder="Senha do Team Viewer"
+						setValue={setTvPassword}
+					/>
+					<Input
+						name="phone"
+						type="text"
+						value={phone}
+						placeholder="Telefone"
+						setValue={setPhone}
+					/>
+					<Input
+						name="login"
+						type="text"
+						value={login}
+						placeholder="Login"
+						setValue={setLogin}
+					/>
+
+					<Button type="submit">Cadastrar</Button>
 				</Card>
 			</Container>
 		</>
 	);
 };
 
-export default EmailAccounts;
+export default ActiveUsers;

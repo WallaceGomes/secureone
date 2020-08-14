@@ -24,7 +24,6 @@ const NewClient = () => {
 	const newClientSubmitHandler = async (event) => {
 		event.preventDefault();
 		try {
-			//falta status
 			await sendRequest(
 				'http://localhost:3333/api/users/create',
 				'POST',
