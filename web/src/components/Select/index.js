@@ -11,8 +11,13 @@ const Select = ({ name, value, setValue, options }) => {
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
 				>
+					<option defaultChecked>Selecione o cliente</option>
 					{options.map((client) => {
-						return <option value={client.id}>{client.name}</option>;
+						return (
+							<option key={client._id} value={client._id}>
+								{client.name}
+							</option>
+						);
 					})}
 				</select>
 			</Label>

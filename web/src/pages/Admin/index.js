@@ -37,7 +37,7 @@ const Admin = () => {
 				setUsers(response);
 			},
 		);
-	}, []);
+	}, [sendRequest]);
 
 	/**
 
@@ -75,7 +75,7 @@ const Admin = () => {
 					Authorization: `Bearer ${storedData.token}`,
 				},
 			 */
-			const response = await sendRequest(
+			await sendRequest(
 				`http://localhost:3333/api/users/clients/${editClietID}`,
 				'PATCH',
 				JSON.stringify({
@@ -189,7 +189,10 @@ const Admin = () => {
 							placeholder="Data de Vencimento do Contrato"
 							setValue={setEditClientDueDate}
 						/>
-						<Button type="submit"> Editar </Button>
+						<div>
+							<Button type="submit"> Editar </Button>
+							<Button onClick={switchEditModeHandler}> Voltar </Button>
+						</div>
 					</form>
 				</Card>
 			</Container>

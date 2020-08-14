@@ -23,7 +23,7 @@ const EmailAccounts = () => {
 				setClients(response);
 			},
 		);
-	}, []);
+	}, [sendRequest]);
 
 	const newEmailSubmitHandler = async (event) => {
 		event.preventDefault();
