@@ -16,6 +16,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Admin = React.lazy(() => import('./pages/Admin'));
 const NewClient = React.lazy(() => import('./pages/NewClient'));
+const EmailAccounts = React.lazy(() => import('./pages/EmailAccounts'));
 
 let logoutTimer;
 
@@ -102,6 +103,9 @@ const App = () => {
 				</Route>
 				<Route path="/newclient">
 					<NewClient />
+				</Route>
+				<Route path="/emailaccounts">
+					<EmailAccounts />
 				</Route>
 				<Redirect to="/" />
 			</Switch>

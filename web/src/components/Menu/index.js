@@ -20,7 +20,7 @@ const Menu = () => {
 				<Link to="/admin">
 					<MenuItem>Administrar Clientes</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/emailaccounts">
 					<MenuItem>Contas Email Ativas</MenuItem>
 				</Link>
 				<Link to="/">
