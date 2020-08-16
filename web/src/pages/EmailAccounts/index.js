@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Card } from './styles';
+import { Container, Card, Label, Error } from './styles';
 import Menu from '../../components/Menu';
-import Select from '../../components/Select';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import Input from '../../components/Input';
+
 import Button from '../../components/Button';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 const EmailAccounts = () => {
-	const [clients, setClients] = useState();
-	const [clientId, setClientId] = useState();
-	const [name, setName] = useState();
-	const [email, setEmail] = useState();
-	const [license, setLicense] = useState();
+	const [clients, setClients] = useState([]);
+	// const [clientId, setClientId] = useState();
+	// const [name, setName] = useState();
+	// const [email, setEmail] = useState();
+	// const [license, setLicense] = useState();
 
 	const { sendRequest, isLoading } = useHttpClient();
 
@@ -25,26 +26,26 @@ const EmailAccounts = () => {
 		);
 	}, [sendRequest]);
 
-	const newEmailSubmitHandler = async (event) => {
-		event.preventDefault();
-		try {
-			await sendRequest(
-				'http://localhost:3333/api/client/users/emails/create',
-				'POST',
-				JSON.stringify({
-					clientId: clientId,
-					email: email,
-					name: name,
-					license: license,
-				}),
-				{
-					'Content-Type': 'application/json',
-				},
-			);
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	// const newEmailSubmitHandler = async (event) => {
+	// 	event.preventDefault();
+	// 	try {
+	// 		await sendRequest(
+	// 			'http://localhost:3333/api/client/users/emails/create',
+	// 			'POST',
+	// 			JSON.stringify({
+	// 				clientId: clientId,
+	// 				email: email,
+	// 				name: name,
+	// 				license: license,
+	// 			}),
+	// 			{
+	// 				'Content-Type': 'application/json',
+	// 			},
+	// 		);
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
 	return (
 		<>
@@ -52,37 +53,90 @@ const EmailAccounts = () => {
 				<Menu />
 				{isLoading && <LoadingSpinner asOverlay />}
 				<Card>
-					<form onSubmit={newEmailSubmitHandler}></form>
-					<h1>Cadastrar nova conta de e-email ativa</h1>
-					<Select
-						name="clients"
-						type="select"
-						value={clientId}
-						options={clients}
-						setValue={setClientId}
-					/>
-					<Input
-						name="name"
-						type="text"
-						value={name}
-						placeholder="Nome"
-						setValue={setName}
-					/>
-					<Input
-						name="email"
-						type="text"
-						value={email}
-						placeholder="Email"
-						setValue={setEmail}
-					/>
-					<Input
-						name="license"
-						type="text"
-						value={license}
-						placeholder="Licenças"
-						setValue={setLicense}
-					/>
-					<Button type="submit">Registrar</Button>
+					<Formik
+						initialValues={{
+							name: '',
+							email: '',
+							license: '',
+							clientId: '',
+						}}
+						validationSchema={Yup.object({
+							clientId: Yup.string().required('Selecione o cliente'),
+							name: Yup.string().required('Campo obrigatório'),
+							email: Yup.string()
+								.email('Formato de email inválido')
+								.required('Campo obrigatório'),
+							license: Yup.string().required('Campo obrigatório'),
+						})}
+						onSubmit={async (values, { setSubmitting }) => {
+							console.log(values);
+							/*
+							Tem que alterar a rota
+							*/
+							// try {
+							// 	await sendRequest(
+							// 		`http://localhost:3333/api/users/create/${values.clientId}`,
+							// 		'POST',
+							// 		JSON.stringify({
+							// 			name: values.clientName,
+							// 			email: values.clientEmail,
+							// 			license: values.clientAddress,
+							// 		}),
+							// 		{
+							// 			'Content-Type': 'application/json',
+							// 		},
+							// 	);
+							// 	setSubmitting(false);
+							// 	history.push('/admin');
+							// } catch (err) {
+							// 	console.error(err);
+							// }
+						}}
+					>
+						<Form>
+							<div>
+								<h1>Nova conta de email</h1>
+
+								<Label htmlFor="clientId">Nome do cliente</Label>
+								<Field
+									name="clientId"
+									as="select"
+									placeholder="Selecione o cliente"
+								>
+									<option defaultChecked>Selecione o cliente</option>
+									{clients.map((client) => {
+										return (
+											<option key={client._id} value={client._id}>
+												{client.name}
+											</option>
+										);
+									})}
+								</Field>
+								<Error>
+									<ErrorMessage name="clientId" />
+								</Error>
+
+								<Label htmlFor="name">Nome</Label>
+								<Field name="name" type="text" />
+								<Error>
+									<ErrorMessage name="name" />
+								</Error>
+
+								<Label htmlFor="email">Email</Label>
+								<Field name="email" type="email" />
+								<Error>
+									<ErrorMessage name="email" />
+								</Error>
+
+								<Label htmlFor="license">Licenças</Label>
+								<Field name="license" type="text" />
+								<Error>
+									<ErrorMessage name="license" />
+								</Error>
+							</div>
+							<Button type="submit">Cadastrar</Button>
+						</Form>
+					</Formik>
 				</Card>
 			</Container>
 		</>
