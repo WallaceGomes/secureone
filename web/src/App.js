@@ -27,7 +27,7 @@ const App = () => {
 	const [userRole, setUserRole] = useState(false);
 	const [tokenExpirationDate, setTokenExpirationDate] = useState();
 
-	const login = useCallback((userId, token, expirationDate, userRole) => {
+	const login = useCallback((userId, token, userRole, expirationDate) => {
 		setToken(token);
 		setUserId(userId);
 		setUserRole(userRole);
@@ -77,8 +77,8 @@ const App = () => {
 			login(
 				storedData.userId,
 				storedData.token,
-				new Date(storedData.expirationDate),
 				storedData.userRole,
+				new Date(storedData.expirationDate),
 			);
 		}
 
@@ -90,37 +90,45 @@ const App = () => {
 	let routes;
 
 	//token
-	if (true) {
-		routes = (
-			<Switch>
-				<Route path="/" exact>
-					<Home />
-				</Route>
-				<Route path="/login" exact>
-					<Login />
-				</Route>
-				<Route path="/admin" exact>
-					<Admin />
-				</Route>
-				<Route path="/newclient" exact>
-					<NewClient />
-				</Route>
-				<Route path="/emailaccounts" exact>
-					<EmailAccounts />
-				</Route>
-				<Route path="/activeusers" exact>
-					<ActiveUsers />
-				</Route>
-				<Redirect to="/" />
-			</Switch>
-		);
+	if (token) {
+		if (userRole === 'admin') {
+			routes = (
+				<Switch>
+					<Route path="/" exact>
+						<Home />
+					</Route>
+					<Route path="/admin" exact>
+						<Admin />
+					</Route>
+					<Route path="/newclient" exact>
+						<NewClient />
+					</Route>
+					<Route path="/emailaccounts" exact>
+						<EmailAccounts />
+					</Route>
+					<Route path="/activeusers" exact>
+						<ActiveUsers />
+					</Route>
+					<Redirect to="/" />
+				</Switch>
+			);
+		} else {
+			routes = (
+				<Switch>
+					<Route path="/" exact>
+						<Home />
+					</Route>
+					<Redirect to="/" />
+				</Switch>
+			);
+		}
 	} else {
 		routes = (
 			<Switch>
-				<Route path="/" exatc>
+				<Route path="/login" exatc>
 					<Login />
 				</Route>
-				<Redirect to="/" />
+				<Redirect to="/login" />
 			</Switch>
 		);
 	}
