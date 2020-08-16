@@ -50,14 +50,21 @@ const ActiveUsers = () => {
 							phone: Yup.string().required('Campo obrigatório'),
 							login: Yup.string().required('Campo obrigatório'),
 						})}
-						onSubmit={async (values, { setSubmiting }) => {
+						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
 							// try {
 							// 	const response = await sendRequest(
 							// 		'http://localhost:3333/api/active/create',
 							// 		'POST',
 							// 		JSON.stringify({
-							// 			values,
+							// 			name: values.name,
+							// 			email: values.email,
+							// 			password: values.password,
+							// 			teamviewer: values.teamviewer,
+							// 			tvpassword: values.tvpassword,
+							// 			phone: values.phone,
+							// 			login: values.login,
+							// 			clientId: values.clientId,
 							// 		}),
 							// 		{
 							// 			'Content-Type': 'application/json',
@@ -65,7 +72,7 @@ const ActiveUsers = () => {
 							// 	);
 							// 	console.log(clientId);
 							// 	console.log(response);
-							// 	setSubmiting(false);
+							// 	setSubmitting(false);
 							// } catch (err) {
 							// 	console.error(err);
 							// }
