@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Card } from './styles';
+import { Container, Card, Error, Label } from './styles';
 import Menu from '../../components/Menu';
-import Select from '../../components/Select';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import Input from '../../components/Input';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import Button from '../../components/Button';
 
 const ActiveUsers = () => {
-	const [clients, setClients] = useState();
-	const [clientId, setClientId] = useState();
-	const [name, setName] = useState();
-	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
-	const [teamViewer, setTeamViewer] = useState();
-	const [tvPassword, setTvPassword] = useState();
-	const [phone, setPhone] = useState();
-	const [login, setLogin] = useState();
+	const [clients, setClients] = useState([]);
 
 	const { sendRequest, isLoading } = useHttpClient();
 
@@ -29,101 +21,124 @@ const ActiveUsers = () => {
 		);
 	}, [sendRequest]);
 
-	const newActiveUserSubmitHandler = async (event) => {
-		event.preventDefault();
-		try {
-			//tem que mudar no backend a rota
-			const response = await sendRequest(
-				'http://localhost:3333/api/active/create',
-				'POST',
-				JSON.stringify({
-					clientId: clientId,
-					email: email,
-					name: name,
-					password: password,
-					teamviewer: teamViewer,
-					tvpassword: tvPassword,
-					phone: phone,
-					login: login,
-				}),
-				{
-					'Content-Type': 'application/json',
-				},
-			);
-			console.log(clientId);
-			console.log(response);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
 	return (
 		<>
 			<Container>
 				<Menu />
 				{isLoading && <LoadingSpinner asOverlay />}
 				<Card>
-					<form onSubmit={newActiveUserSubmitHandler}>
-						<h1>Cadastrar novo usuário ativo</h1>
-						<Select
-							name="clients"
-							type="select"
-							value={clientId}
-							options={clients}
-							setValue={setClientId}
-						/>
-						<Input
-							name="name"
-							type="text"
-							value={name}
-							placeholder="Nome"
-							setValue={setName}
-						/>
-						<Input
-							name="email"
-							type="email"
-							value={email}
-							placeholder="E-mail"
-							setValue={setEmail}
-						/>
-						<Input
-							name="password"
-							type="text"
-							value={password}
-							placeholder="Senha"
-							setValue={setPassword}
-						/>
-						<Input
-							name="teamviewer"
-							type="text"
-							value={teamViewer}
-							placeholder="Team Viewer"
-							setValue={setTeamViewer}
-						/>
-						<Input
-							name="tvpassword"
-							type="text"
-							value={tvPassword}
-							placeholder="Senha do Team Viewer"
-							setValue={setTvPassword}
-						/>
-						<Input
-							name="phone"
-							type="text"
-							value={phone}
-							placeholder="Telefone"
-							setValue={setPhone}
-						/>
-						<Input
-							name="login"
-							type="text"
-							value={login}
-							placeholder="Login"
-							setValue={setLogin}
-						/>
+					<Formik
+						initialValues={{
+							name: '',
+							email: '',
+							password: '',
+							teamviewer: '',
+							tvpassword: '',
+							phone: '',
+							login: '',
+							clientId: '',
+						}}
+						validationSchema={Yup.object({
+							clientId: Yup.string().required('Selecione o cliente'),
+							name: Yup.string().required('Campo obrigatório'),
+							email: Yup.string()
+								.email('Formato de email inválido')
+								.required('Campo obrigatório'),
+							password: Yup.string().required('Campo obrigatório'),
+							teamviewer: Yup.string().required('Campo obrigatório'),
+							tvpassword: Yup.string().required('Campo obrigatório'),
+							phone: Yup.string().required('Campo obrigatório'),
+							login: Yup.string().required('Campo obrigatório'),
+						})}
+						onSubmit={async (values, { setSubmiting }) => {
+							console.log(values);
+							// try {
+							// 	const response = await sendRequest(
+							// 		'http://localhost:3333/api/active/create',
+							// 		'POST',
+							// 		JSON.stringify({
+							// 			values,
+							// 		}),
+							// 		{
+							// 			'Content-Type': 'application/json',
+							// 		},
+							// 	);
+							// 	console.log(clientId);
+							// 	console.log(response);
+							// 	setSubmiting(false);
+							// } catch (err) {
+							// 	console.error(err);
+							// }
+						}}
+					>
+						<Form>
+							<div>
+								<h1>Cadastrar novo usuário ativo</h1>
 
-						<Button type="submit">Cadastrar</Button>
-					</form>
+								<Label htmlFor="clientId">Nome do cliente</Label>
+								<Field
+									name="clientId"
+									as="select"
+									placeholder="Selecione o cliente"
+								>
+									<option defaultChecked>Selecione o cliente</option>
+									{clients.map((client) => {
+										return (
+											<option key={client._id} value={client._id}>
+												{client.name}
+											</option>
+										);
+									})}
+								</Field>
+								<Error>
+									<ErrorMessage name="clientId" />
+								</Error>
+
+								<Label htmlFor="name">Nome do usuário</Label>
+								<Field name="name" type="text" />
+								<Error>
+									<ErrorMessage name="name" />
+								</Error>
+
+								<Label htmlFor="email">Email</Label>
+								<Field name="email" type="email" />
+								<Error>
+									<ErrorMessage name="email" />
+								</Error>
+
+								<Label htmlFor="password">Senha</Label>
+								<Field name="password" type="text" />
+								<Error>
+									<ErrorMessage name="password" />
+								</Error>
+
+								<Label htmlFor="teamviewer">Team Viewer</Label>
+								<Field name="teamviewer" type="text" />
+								<Error>
+									<ErrorMessage name="teamviewer" />
+								</Error>
+
+								<Label htmlFor="tvpassword">Senha Team Viewer</Label>
+								<Field name="tvpassword" type="text" />
+								<Error>
+									<ErrorMessage name="tvpassword" />
+								</Error>
+
+								<Label htmlFor="phone">Telefone</Label>
+								<Field name="phone" type="text" />
+								<Error>
+									<ErrorMessage name="phone" />
+								</Error>
+
+								<Label htmlFor="login">Login</Label>
+								<Field name="login" type="text" />
+								<Error>
+									<ErrorMessage name="login" />
+								</Error>
+							</div>
+							<Button type="submit">Registrar</Button>
+						</Form>
+					</Formik>
 				</Card>
 			</Container>
 		</>
