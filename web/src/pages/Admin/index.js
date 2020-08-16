@@ -20,18 +20,9 @@ import Button from '../../components/Button';
 
 const Admin = () => {
 	const { sendRequest, isLoading } = useHttpClient();
+
 	const [users, setUsers] = useState([]);
-
 	const [initialFormValues, setInitialFormValues] = useState();
-	const [editClientName, setEditClientName] = useState('');
-	const [editClientEmail, setEditClientEmail] = useState('');
-	const [editClientAddress, setEditClientAddress] = useState('');
-	const [editClientCNPJ, setEditClientCNPJ] = useState('');
-	const [editClientContract, setEditClientContract] = useState('');
-	const [editClientActive, setEditClientActive] = useState('');
-	const [editClientDueDate, setEditClientDueDate] = useState('');
-	const [editClietID, setEditClientID] = useState(Number);
-
 	const [isEditMode, setIsEditMode] = useState(false);
 
 	//falta auth
