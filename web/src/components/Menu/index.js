@@ -45,7 +45,7 @@ const Menu = () => {
 				<Link to="/active/accounts">
 					<MenuItem>Contas ativas</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/active/users">
 					<MenuItem>Usuários ativos</MenuItem>
 				</Link>
 				<Link to="/">
