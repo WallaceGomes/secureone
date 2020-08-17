@@ -11,10 +11,6 @@ import * as Yup from 'yup';
 
 const EmailAccounts = () => {
 	const [clients, setClients] = useState([]);
-	// const [clientId, setClientId] = useState();
-	// const [name, setName] = useState();
-	// const [email, setEmail] = useState();
-	// const [license, setLicense] = useState();
 
 	const { sendRequest, isLoading } = useHttpClient();
 

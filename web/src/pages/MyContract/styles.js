@@ -10,6 +10,7 @@ export const Card = styled.div`
 	height: 80vh;
 	margin: 0 auto;
 	margin-top: 90px;
+	margin-left: 22%;
 
 	h1 {
 		color: #fff;

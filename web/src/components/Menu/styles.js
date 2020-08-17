@@ -5,6 +5,8 @@ export const Wraper = styled.aside`
 	height: 100vh;
 	width: 18%;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+	position: fixed;
+	margin-right: 2px;
 
 	img {
 		width: 80%;

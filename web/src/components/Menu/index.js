@@ -39,10 +39,10 @@ const Menu = () => {
 	if (auth.userRole === 'client') {
 		menu = (
 			<MenuUl>
-				<Link to="/">
+				<Link to="/my/contract">
 					<MenuItem>Meu contrato</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/active/accounts">
 					<MenuItem>Contas ativas</MenuItem>
 				</Link>
 				<Link to="/">

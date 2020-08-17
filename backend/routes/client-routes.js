@@ -13,4 +13,6 @@ router.get('/equip/:clientId', clientController.equips);
 
 router.get('/assets:clientId', clientController.assets);
 
+router.post('/users/emails/create', clientController.createEmails);
+
 module.exports = router;
