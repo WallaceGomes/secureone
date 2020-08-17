@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const userRoutes = require('./routes/user-routes');
 const activeUsersRoutes = require('./routes/active-user-routes');
+const clientRoutes = require('./routes/client-routes');
 
 const mongoDB = require('./mongodb/mongodb.connect');
 const app = express();
@@ -15,7 +16,7 @@ app.use(cors());
 
 app.use('/api/users', userRoutes);
 app.use('/api/active', activeUsersRoutes);
-
+app.use('/api/client', clientRoutes);
 //error middleware
 app.use((error, req, res, next) => {
 	if (res.headerSent) {

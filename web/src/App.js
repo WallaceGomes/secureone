@@ -18,6 +18,7 @@ const Admin = React.lazy(() => import('./pages/Admin'));
 const NewClient = React.lazy(() => import('./pages/NewClient'));
 const EmailAccounts = React.lazy(() => import('./pages/EmailAccounts'));
 const ActiveUsers = React.lazy(() => import('./pages/ActiveUsers'));
+const MyContract = React.lazy(() => import('./pages/MyContract'));
 
 let logoutTimer;
 
@@ -84,7 +85,6 @@ const App = () => {
 
 		//!!!!!!NOTA!!!!!!
 		//TIRAR ISSO DAQUI DEPOIS
-		setUserRole('admin');
 	}, [login]);
 
 	let routes;
@@ -115,10 +115,22 @@ const App = () => {
 		} else {
 			routes = (
 				<Switch>
-					<Route path="/" exact>
+					<Route path="/my/contract" exact>
+						<MyContract />
+					</Route>
+					<Route path="/active/accounts" exact>
 						<Home />
 					</Route>
-					<Redirect to="/" />
+					<Route path="/active/users" exact>
+						<Home />
+					</Route>
+					<Route path="/my/equipments" exact>
+						<Home />
+					</Route>
+					<Route path="/my/assets" exact>
+						<Home />
+					</Route>
+					<Redirect to="/my/contract" />
 				</Switch>
 			);
 		}
