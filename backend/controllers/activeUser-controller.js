@@ -7,11 +7,9 @@ const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
 	const { clientId } = req.params;
-	console.log(req.params);
 
 	let activeUsers;
 	try {
-		console.log(clientId);
 		activeUsers = await ActiveUser.find({ clientId: clientId });
 		if (!activeUsers) {
 			return res.status(200).send('Not able to find any user');

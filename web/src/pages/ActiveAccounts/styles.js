@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const AuxCard = styled.div`
-	background-color: blue;
+	background-color: transparent;
 	width: 110vh;
 	height: 80vh;
 	margin: 0 auto;
@@ -31,4 +31,5 @@ export const StyledCard = styled.div`
 	display: flex;
 	flex-direction: column;
 	transition: ease all 0.5s;
+	border: 1px solid #000;
 `;

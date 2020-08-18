@@ -14,6 +14,7 @@ export const Card = styled.div`
 	border-radius: 6px;
 	overflow: hidden;
 	background: white;
+	margin-left: 22%;
 
 	h1 {
 		margin-left: 2rem;

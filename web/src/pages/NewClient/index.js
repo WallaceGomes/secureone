@@ -110,7 +110,7 @@ const NewClient = () => {
 								<ErrorMessage name="clientActive" />
 							</Error>
 
-							<Label htmlFor="clientDueDate">Telefone</Label>
+							<Label htmlFor="clientDueDate">Vencimento do contrato</Label>
 							<Field name="clientDueDate" type="date" />
 							<Error>
 								<ErrorMessage name="clientDueDate" />

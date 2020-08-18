@@ -21,7 +21,7 @@ const Menu = () => {
 					<MenuItem>Administrar Clientes</MenuItem>
 				</Link>
 				<Link to="/emailaccounts">
-					<MenuItem>Contas Email Ativas</MenuItem>
+					<MenuItem>Contas Email</MenuItem>
 				</Link>
 				<Link to="/activeusers">
 					<MenuItem>Usuários Ativos</MenuItem>
@@ -43,7 +43,7 @@ const Menu = () => {
 					<MenuItem>Meu contrato</MenuItem>
 				</Link>
 				<Link to="/active/accounts">
-					<MenuItem>Contas ativas</MenuItem>
+					<MenuItem>E-mails</MenuItem>
 				</Link>
 				<Link to="/active/users">
 					<MenuItem>Usuários ativos</MenuItem>

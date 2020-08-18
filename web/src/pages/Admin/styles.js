@@ -5,17 +5,17 @@ export const Container = styled.div`
 `;
 
 export const UsersContainer = styled.div`
-	background-color: gray;
+	background-color: #fff;
 	width: 76%;
-	margin-left: 3%;
 	margin-right: 3%;
-	margin-top: 10px;
+	margin-top: 30px;
 	margin-bottom: 20px;
+	margin-left: 22%;
 `;
 
 export const Header = styled.div`
-	background-color: gray;
-	width: 76%;
+	background-color: #fff;
+	width: 100%;
 	height: 60px;
 	padding-top: 10px;
 	padding-left: 40px;
@@ -29,11 +29,11 @@ export const ClientsTable = styled.table`
 	th {
 		text-align: left;
 		padding-left: 10px;
-		border: 1px solid #dddddd;
+		border: 1px solid #cccccc;
 	}
-	tr:nth-child(even) {
-		background-color: #dddddd;
-	}
+	/* tr:nth-child(even) {
+		background-color: #fff;
+	} */
 	th {
 		font-size: 22px;
 	}
@@ -58,6 +58,7 @@ export const Card = styled.div`
 	border-radius: 6px;
 	overflow: hidden;
 	background: white;
+	margin-left: 22%;
 
 	h1 {
 		margin-left: 2rem;

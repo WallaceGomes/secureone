@@ -36,7 +36,7 @@ const ActiveAccounts = () => {
 							<StyledCard key={account._id}>
 								<strong>Nome: {account.name}</strong>
 								<span>E-mail: {account.email}</span>
-								<span>Licensas: {account.license}</span>
+								<span>Fornecedor: {account.license}</span>
 							</StyledCard>
 						);
 					})}
