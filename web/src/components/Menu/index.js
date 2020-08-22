@@ -30,7 +30,7 @@ const Menu = () => {
 				<Link to="/">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/newasset">
 					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
 				<div>
