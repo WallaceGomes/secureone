@@ -33,3 +33,28 @@ export const StyledCard = styled.div`
 	transition: ease all 0.5s;
 	border: 1px solid #000;
 `;
+
+export const DataTable = styled.table`
+	width: 100%;
+	td,
+	th {
+		text-align: left;
+		padding-left: 10px;
+		border: 2px solid #000000;
+	}
+	tr:nth-child(even) {
+		background-color: #cccccc;
+	}
+	th {
+		font-size: 22px;
+	}
+	td {
+		font-size: 18px;
+	}
+
+	svg {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+`;

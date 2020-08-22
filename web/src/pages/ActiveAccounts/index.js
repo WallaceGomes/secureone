@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, AuxCard, StyledCard } from './styles';
+import { Container, AuxCard, StyledCard, DataTable } from './styles';
 import Menu from '../../components/Menu';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -15,7 +15,7 @@ const ActiveAccounts = () => {
 		const storedData = JSON.parse(localStorage.getItem('userData'));
 
 		sendRequest(
-			`http://localhost:3333/api/client/active/accounts/${storedData.userId}`,
+			`http://localhost:3333/api/client/active/emails/${storedData.userId}`,
 			'GET',
 			null,
 		).then((response) => {
@@ -30,17 +30,25 @@ const ActiveAccounts = () => {
 			{isLoading && <LoadingSpinner />}
 			<AuxCard>
 				<h1>Contas de Email Ativas</h1>
-				<Wraper>
-					{accounts.map((account) => {
-						return (
-							<StyledCard key={account._id}>
-								<strong>Nome: {account.name}</strong>
-								<span>E-mail: {account.email}</span>
-								<span>Fornecedor: {account.license}</span>
-							</StyledCard>
-						);
-					})}
-				</Wraper>
+				<DataTable>
+					<tbody>
+						<tr>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Fornecedor</th>
+						</tr>
+					</tbody>
+					{accounts &&
+						accounts.map((account) => {
+							return (
+								<tr key={account._id}>
+									<td>{account.name}</td>
+									<td>{account.email}</td>
+									<td>{account.license}</td>
+								</tr>
+							);
+						})}
+				</DataTable>
 			</AuxCard>
 		</Container>
 	);

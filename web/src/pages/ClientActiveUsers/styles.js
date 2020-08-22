@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 export const AuxCard = styled.div`
 	background-color: transparent;
-	width: 110vh;
+	width: 75%;
 	height: 80vh;
 	margin: 0 auto;
 	margin-top: 90px;
@@ -32,4 +32,29 @@ export const StyledCard = styled.div`
 	flex-direction: column;
 	transition: ease all 0.5s;
 	border: 1px solid #000;
+`;
+
+export const DataTable = styled.table`
+	width: 100%;
+	td,
+	th {
+		text-align: left;
+		padding-left: 10px;
+		border: 2px solid #000000;
+	}
+	tr:nth-child(even) {
+		background-color: #cccccc;
+	}
+	th {
+		font-size: 22px;
+	}
+	td {
+		font-size: 18px;
+	}
+
+	svg {
+		&:hover {
+			cursor: pointer;
+		}
+	}
 `;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, AuxCard, StyledCard } from './styles';
+import { Container, AuxCard, DataTable } from './styles';
 import Menu from '../../components/Menu';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -30,20 +30,31 @@ const ClientActiveUsers = () => {
 			{isLoading && <LoadingSpinner />}
 			<AuxCard>
 				<h1>Usuários Ativos</h1>
-				<Wraper>
-					{activeUsers.map((user) => {
-						return (
-							<StyledCard key={user._id}>
-								<strong>Nome: {user.name}</strong>
-								<span>E-mail: {user.email}</span>
-								<span>Team Viewer: {user.teamviewer}</span>
-								<span>Senha Team Viewer: {user.tvpassword}</span>
-								<span>Telefone: {user.phone}</span>
-								<span>Login: {user.login}</span>
-							</StyledCard>
-						);
-					})}
-				</Wraper>
+				<DataTable>
+					<tbody>
+						<tr>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Team Viewer</th>
+							<th>Senha Team Viewer</th>
+							<th>Telefone</th>
+							<th>Login</th>
+						</tr>
+					</tbody>
+					{activeUsers &&
+						activeUsers.map((user) => {
+							return (
+								<tr key={user._id}>
+									<td>{user.name}</td>
+									<td>{user.email}</td>
+									<td>{user.teamviewer}</td>
+									<td>{user.tvpassword}</td>
+									<td>{user.phone}</td>
+									<td>{user.login}</td>
+								</tr>
+							);
+						})}
+				</DataTable>
 			</AuxCard>
 		</Container>
 	);
