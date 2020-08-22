@@ -112,7 +112,7 @@ const EmailAccounts = () => {
 									<ErrorMessage name="clientId" />
 								</Error>
 
-								<Label htmlFor="name">Nome</Label>
+								<Label htmlFor="name">Nome do usuário</Label>
 								<Field name="name" type="text" />
 								<Error>
 									<ErrorMessage name="name" />
@@ -124,8 +124,13 @@ const EmailAccounts = () => {
 									<ErrorMessage name="email" />
 								</Error>
 
-								<Label htmlFor="license">Licenças</Label>
-								<Field name="license" type="text" />
+								<Label htmlFor="license">Licença</Label>
+								<Field name="license" as="select">
+									<option defaultChecked>Selecione o tipo</option>
+									<option value="Office 365">Office 365</option>
+									<option value="Google GSuite">Google GSuite</option>
+									<option value="Outros">Outros</option>
+								</Field>
 								<Error>
 									<ErrorMessage name="license" />
 								</Error>

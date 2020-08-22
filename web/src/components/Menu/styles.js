@@ -20,6 +20,9 @@ export const MenuUl = styled.ul`
 	margin-left: 5px;
 	margin-right: 5px;
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 `;
 
 export const MenuItem = styled.button`
@@ -32,6 +35,21 @@ export const MenuItem = styled.button`
 	font-size: 18px;
 	font-weight: bold;
 	margin-bottom: 15px;
+	:hover {
+		cursor: pointer;
+	}
+`;
+
+export const LogoutButtom = styled.button`
+	background-color: #fff;
+	height: 50px;
+	width: 90%;
+	border: solid 2px;
+	border-radius: 3px;
+	vertical-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 1.5rem;
 	:hover {
 		cursor: pointer;
 	}

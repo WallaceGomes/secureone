@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { Wraper, MenuUl, MenuItem } from './styles';
+import { FiLogOut } from 'react-icons/fi';
+import { Wraper, MenuUl, MenuItem, LogoutButtom } from './styles';
 //import Logo from '../Logo';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,9 @@ const Menu = () => {
 				<Link to="/">
 					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
+				<div>
+					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
+				</div>
 			</MenuUl>
 		);
 	}
@@ -54,6 +58,9 @@ const Menu = () => {
 				<Link to="/">
 					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
+				<div>
+					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
+				</div>
 			</MenuUl>
 		);
 	}
