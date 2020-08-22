@@ -10,7 +10,7 @@ export const UsersContainer = styled.div`
 	margin-right: 3%;
 	margin-top: 30px;
 	margin-bottom: 20px;
-	margin-left: 22%;
+	margin-left: 20%;
 `;
 
 export const Header = styled.div`

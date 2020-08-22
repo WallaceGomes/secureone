@@ -24,6 +24,9 @@ const ClientActiveUsers = React.lazy(() => import('./pages/ClientActiveUsers'));
 const AdminEnterpriseAssets = React.lazy(() =>
 	import('./pages/AdminEnterpriseAssets'),
 );
+const ClientEnterpriseAssets = React.lazy(() =>
+	import('./pages/ClientEnterpriseAssets'),
+);
 
 let logoutTimer;
 
@@ -136,7 +139,7 @@ const App = () => {
 						<Home />
 					</Route>
 					<Route path="/my/assets" exact>
-						<Home />
+						<ClientEnterpriseAssets />
 					</Route>
 					<Redirect to="/my/contract" />
 				</Switch>

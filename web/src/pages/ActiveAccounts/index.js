@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, AuxCard, StyledCard, DataTable } from './styles';
+import { Container, AuxCard, DataTable } from './styles';
 import Menu from '../../components/Menu';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import Wraper from '../../components/Wraper';
 
 const ActiveAccounts = () => {
 	const [accounts, setAccounts] = useState([]);

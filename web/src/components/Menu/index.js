@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { FiLogOut } from 'react-icons/fi';
 import { Wraper, MenuUl, MenuItem, LogoutButtom } from './styles';
 //import Logo from '../Logo';
 import logo from '../../assets/logo.png';
@@ -55,7 +54,7 @@ const Menu = () => {
 				<Link to="/">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/my/assets">
 					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
 				<div>

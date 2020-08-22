@@ -10,7 +10,7 @@ export const AuxCard = styled.div`
 	height: 80vh;
 	margin: 0 auto;
 	margin-top: 90px;
-	margin-left: 22%;
+	margin-left: 20%;
 
 	h1 {
 		margin: 20px;

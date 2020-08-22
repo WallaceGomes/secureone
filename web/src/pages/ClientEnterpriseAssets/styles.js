@@ -6,11 +6,11 @@ export const Container = styled.div`
 
 export const AuxCard = styled.div`
 	background-color: transparent;
-	width: 110vh;
+	width: 75%;
 	height: 80vh;
 	margin: 0 auto;
 	margin-top: 90px;
-	margin-left: 20%;
+	margin-left: 18%;
 
 	h1 {
 		margin: 20px;
