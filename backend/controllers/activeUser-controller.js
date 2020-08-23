@@ -6,6 +6,20 @@ const ActiveUser = require('../models/activeUsers');
 const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
+	try {
+		const activeUsers = await ActiveUser.find();
+		if (!activeUsers) {
+			return res.status(404).send('Unable to find any user!');
+		}
+		res.status(200).json(activeUsers);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Could not find any user!', 500);
+		return next(error);
+	}
+};
+
+exports.indexOne = async (req, res, next) => {
 	const { clientId } = req.params;
 
 	let activeUsers;
