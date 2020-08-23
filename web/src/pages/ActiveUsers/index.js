@@ -47,7 +47,10 @@ const ActiveUsers = () => {
 							password: Yup.string().required('Campo obrigatório'),
 							teamviewer: Yup.string().required('Campo obrigatório'),
 							tvpassword: Yup.string().required('Campo obrigatório'),
-							phone: Yup.string().required('Campo obrigatório'),
+							phone: Yup.string()
+								.min(10, 'Número incompleto')
+								.max(11, 'Máximo de 11 números')
+								.required('Campo obrigatório'),
 							login: Yup.string().required('Campo obrigatório'),
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
@@ -108,7 +111,11 @@ const ActiveUsers = () => {
 								</Error>
 
 								<Label htmlFor="email">Email</Label>
-								<Field name="email" type="email" />
+								<Field
+									name="email"
+									type="email"
+									placeholder="exemplo@exemplo.com"
+								/>
 								<Error>
 									<ErrorMessage name="email" />
 								</Error>
@@ -132,7 +139,11 @@ const ActiveUsers = () => {
 								</Error>
 
 								<Label htmlFor="phone">Telefone</Label>
-								<Field name="phone" type="text" />
+								<Field
+									name="phone"
+									type="number"
+									placeholder="Somente números"
+								/>
 								<Error>
 									<ErrorMessage name="phone" />
 								</Error>

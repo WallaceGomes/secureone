@@ -29,6 +29,9 @@ const Menu = () => {
 				<Link to="/activeusers">
 					<MenuItem>Usuários Ativos</MenuItem>
 				</Link>
+				<Link to="/admin/activeusers">
+					<MenuItem>Admin Usuários Ativos</MenuItem>
+				</Link>
 				<Link to="/">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
