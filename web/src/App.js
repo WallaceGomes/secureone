@@ -1,5 +1,6 @@
 import React, { Suspense, useCallback, useState, useEffect } from 'react';
 
+//change to HashRouter if you get a blanc page in statig hosting
 import {
 	BrowserRouter as Router,
 	Route,
