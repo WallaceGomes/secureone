@@ -21,6 +21,18 @@ exports.index = async (req, res, next) => {
 	return res.status(404).json('Could not find any user!');
 };
 
+exports.indexEmails = async (req, res, next) => {
+	try {
+		const allAccounts = await EmailsUser.find();
+
+		return res.status(200).json(allAccounts);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the emails', 500);
+		return next(error);
+	}
+};
+
 exports.activeEmailAccount = async (req, res, next) => {
 	const { clientId } = req.params;
 
@@ -38,6 +50,74 @@ exports.activeEmailAccount = async (req, res, next) => {
 		const error = new HttpError('Error trying to find user', 500);
 		return next(error);
 	}
+};
+
+exports.editEmailAccount = async (req, res, next) => {
+	const { accountId } = req.params;
+	const { name, email, license } = req.body;
+
+	const updatedEmailAccount = {
+		name: name,
+		email: email,
+		license: license,
+		updated_at: Date.now(),
+	};
+
+	let account;
+
+	try {
+		account = await EmailsUser.findOneAndUpdate(
+			{ _id: accountId },
+			updatedEmailAccount,
+		);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to edit the email account', 500);
+		return next(error);
+	}
+
+	if (!account) {
+		const error = new HttpError(
+			'Could not find account for the provided ID',
+			404,
+		);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'Email account updated!' });
+};
+
+exports.deleteEmailAccount = async (req, res, next) => {
+	const { accountId } = req.params;
+
+	let account;
+
+	try {
+		account = await EmailsUser.findById({ _id: accountId });
+
+		if (!account) {
+			const error = new HttpError(
+				'Could not find account for the provided id',
+				404,
+			);
+			return next(error);
+		}
+	} catch (err) {
+		const error = new HttpError('Error trying to find the account', 500);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await account.remove({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError('Error deleting the email, DB session', 500);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'Email deleted!' });
 };
 
 exports.activeUsers = async (req, res, next) => {};

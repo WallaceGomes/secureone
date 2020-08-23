@@ -5,6 +5,8 @@ const clientController = require('../controllers/client-controller');
 
 router.get('/info/:clientId', clientController.index);
 
+router.get('/active/emails', clientController.indexEmails);
+
 router.get('/active/emails/:clientId', clientController.activeEmailAccount);
 
 router.get('/active/users/:clientId', clientController.activeUsers);
@@ -16,5 +18,9 @@ router.get('/assets/:clientId', clientController.getAssets);
 router.post('/users/emails/create', clientController.createEmails);
 
 router.post('/assets', clientController.createAssets);
+
+router.patch('/active/email/:accountId', clientController.editEmailAccount);
+
+router.delete('/active/email/:accountId', clientController.deleteEmailAccount);
 
 module.exports = router;
