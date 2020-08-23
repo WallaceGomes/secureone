@@ -213,6 +213,94 @@ exports.createAssets = async (req, res, next) => {
 	return res.status(200).json(createdAsset);
 };
 
+exports.deleteAsset = async (req, res, next) => {
+	const { assetId } = req.params;
+
+	let asset;
+
+	try {
+		asset = await EnterpriseAsset.findById({ _id: assetId });
+
+		if (!asset) {
+			const error = new HttpError(
+				'Could not find any asset for the provided id',
+				404,
+			);
+			return next(error);
+		}
+	} catch (err) {
+		const error = new HttpError('Error trying to find the asset', 500);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await asset.remove({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError('Error deleting the asset, DB session', 500);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'Asset deleted!' });
+};
+
+exports.editAsset = async (req, res, next) => {
+	const { assetId } = req.params;
+	const {
+		equipment,
+		modelo,
+		hostname,
+		user,
+		memory,
+		cpu,
+		hd,
+		so,
+		licensed,
+		antivirus,
+		tdr,
+		inuse,
+	} = req.body;
+
+	const updatedAsset = {
+		equipment,
+		modelo,
+		hostname,
+		user,
+		memory,
+		cpu,
+		hd,
+		so,
+		licensed,
+		antivirus,
+		tdr,
+		inuse,
+		updated_at: Date.now(),
+	};
+
+	try {
+		const asset = await EnterpriseAsset.findOneAndUpdate(
+			{ _id: assetId },
+			updatedAsset,
+		);
+
+		if (!asset) {
+			const error = new HttpError(
+				'Could not find the asset for the provided ID',
+				404,
+			);
+			return next(error);
+		}
+
+		res.status(200).json({ message: 'Asset updated!' });
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to edit the email account', 500);
+		return next(error);
+	}
+};
+
 exports.createEmails = async (req, res, next) => {
 	const { clientId, email, name, license } = req.body;
 

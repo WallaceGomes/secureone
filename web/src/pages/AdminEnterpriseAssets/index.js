@@ -68,7 +68,7 @@ const AdminEnterpriseAssets = () => {
 		event.preventDefault();
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/asset/${assetId}`,
+				`http://localhost:3333/api/client/assets/${assetId}`,
 				'DELETE',
 				null,
 			);
@@ -103,6 +103,7 @@ const AdminEnterpriseAssets = () => {
 							licensed: initialFormValues.licensed,
 							antivirus: initialFormValues.antivirus,
 							tdr: initialFormValues.tdr,
+							inuse: initialFormValues.inuse,
 							assetId: initialFormValues.assetId,
 						}}
 						validationSchema={Yup.object({
@@ -129,7 +130,7 @@ const AdminEnterpriseAssets = () => {
 									},
 								 */
 								await sendRequest(
-									`http://localhost:3333/api/client/asset/${values.assetId}`,
+									`http://localhost:3333/api/client/assets/${values.assetId}`,
 									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,

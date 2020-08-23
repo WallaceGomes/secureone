@@ -30,7 +30,7 @@ const EnterpriseAssets = () => {
 					<Formik
 						initialValues={{
 							equipment: '',
-							model: '',
+							modelo: '',
 							hostname: '',
 							user: '',
 							memory: '',
@@ -46,7 +46,7 @@ const EnterpriseAssets = () => {
 						validationSchema={Yup.object({
 							clientId: Yup.string().required('Selecione o cliente'),
 							equipment: Yup.string().required('Campo obrigatório'),
-							model: Yup.string().required('Campo obrigatório'),
+							modelo: Yup.string().required('Campo obrigatório'),
 							hostname: Yup.string().required('Campo obrigatório'),
 							user: Yup.string().required('Campo obrigatório'),
 							memory: Yup.string().required('Campo obrigatório'),
@@ -60,35 +60,34 @@ const EnterpriseAssets = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
-							// try {
-							// 	const response = await sendRequest(
-							// 		'http://localhost:3333/api/cliets/asset',
-							// 		'POST',
-							// 		JSON.stringify({
-							// 			clientId: values.clientId,
-							// 			equipment: values.equipment,
-							// 			model: values.model,
-							// 			hostname: values.hostname,
-							// 			user: values.user,
-							// 			memory: values.memory,
-							// 			cpu: values.cpu,
-							// 			hd: values.hd,
-							//			so: values.so,
-							//				licensed: values.licensed,
-							//				antivirus: values.antivirus,
-							//				tdr: values.tdr,
-							//				inuse: values.inuse,
-							// 		}),
-							// 		{
-							// 			'Content-Type': 'application/json',
-							// 		},
-							// 	);
-							// 	console.log(clientId);
-							// 	console.log(response);
-							// 	setSubmitting(false);
-							// } catch (err) {
-							// 	console.error(err);
-							// }
+							try {
+								const response = await sendRequest(
+									'http://localhost:3333/api/client/assets',
+									'POST',
+									JSON.stringify({
+										clientId: values.clientId,
+										equipment: values.equipment,
+										modelo: values.modelo,
+										hostname: values.hostname,
+										user: values.user,
+										memory: values.memory,
+										cpu: values.cpu,
+										hd: values.hd,
+										so: values.so,
+										licensed: values.licensed,
+										antivirus: values.antivirus,
+										tdr: values.tdr,
+										inuse: values.inuse,
+									}),
+									{
+										'Content-Type': 'application/json',
+									},
+								);
+								console.log(response);
+								setSubmitting(false);
+							} catch (err) {
+								console.error(err);
+							}
 						}}
 					>
 						<Form>
@@ -130,10 +129,10 @@ const EnterpriseAssets = () => {
 									</div>
 								</DuoColumns>
 
-								<Label htmlFor="model">Modelo</Label>
-								<Field name="model" type="text" />
+								<Label htmlFor="modelo">Modelo</Label>
+								<Field name="modelo" type="text" />
 								<Error>
-									<ErrorMessage name="model" />
+									<ErrorMessage name="modelo" />
 								</Error>
 
 								<Label htmlFor="hostname">Host Name</Label>

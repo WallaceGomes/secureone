@@ -23,6 +23,10 @@ router.post('/assets', clientController.createAssets);
 
 router.patch('/active/email/:accountId', clientController.editEmailAccount);
 
+router.patch('/assets/:assetId', clientController.editAsset);
+
+router.delete('/assets/:assetId', clientController.deleteAsset);
+
 router.delete('/active/email/:accountId', clientController.deleteEmailAccount);
 
 module.exports = router;
