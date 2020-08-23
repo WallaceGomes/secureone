@@ -124,6 +124,18 @@ exports.activeUsers = async (req, res, next) => {};
 
 exports.equips = async (req, res, next) => {};
 
+exports.indexAssets = async (req, res, next) => {
+	try {
+		const assets = await EnterpriseAsset.find();
+
+		return res.status(200).json(assets);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the assets', 500);
+		return next(error);
+	}
+};
+
 exports.getAssets = async (req, res, next) => {
 	const { clientId } = req.params;
 
@@ -146,7 +158,7 @@ exports.getAssets = async (req, res, next) => {
 exports.createAssets = async (req, res, next) => {
 	const {
 		equipment,
-		model,
+		modelo,
 		hostname,
 		user,
 		memory,
@@ -174,7 +186,7 @@ exports.createAssets = async (req, res, next) => {
 
 	const createdAsset = new EnterpriseAsset({
 		equipment,
-		model,
+		modelo,
 		hostname,
 		user,
 		memory,
@@ -187,6 +199,8 @@ exports.createAssets = async (req, res, next) => {
 		inuse,
 		clientId,
 	});
+
+	console.log(createdAsset);
 
 	try {
 		await createdAsset.save();

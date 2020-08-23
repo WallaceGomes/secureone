@@ -46,7 +46,7 @@ const AdminEnterpriseAssets = () => {
 		if (asset) {
 			const initialvalues = {
 				equipment: asset.equipment,
-				model: asset.model,
+				modelo: asset.modelo,
 				hostname: asset.hostname,
 				user: asset.user,
 				memory: asset.memory,
@@ -93,7 +93,7 @@ const AdminEnterpriseAssets = () => {
 					<Formik
 						initialValues={{
 							equipment: initialFormValues.equipment,
-							model: initialFormValues.model,
+							modelo: initialFormValues.modelo,
 							hostname: initialFormValues.hostname,
 							user: initialFormValues.user,
 							memory: initialFormValues.memory,
@@ -107,7 +107,7 @@ const AdminEnterpriseAssets = () => {
 						}}
 						validationSchema={Yup.object({
 							equipment: Yup.string().required('Campo obrigatório'),
-							model: Yup.string().required('Campo obrigatório'),
+							modelo: Yup.string().required('Campo obrigatório'),
 							hostname: Yup.string().required('Campo obrigatório'),
 							user: Yup.string().required('Campo obrigatório'),
 							memory: Yup.string().required('Campo obrigatório'),
@@ -133,7 +133,7 @@ const AdminEnterpriseAssets = () => {
 									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,
-										model: values.model,
+										modelo: values.modelo,
 										hostname: values.hostname,
 										user: values.user,
 										memory: values.memory,
@@ -152,7 +152,7 @@ const AdminEnterpriseAssets = () => {
 								const editedAsset = {
 									_id: values.assetId,
 									equipment: values.equipment,
-									model: values.model,
+									modelo: values.modelo,
 									hostname: values.hostname,
 									user: values.user,
 									memory: values.memory,
@@ -193,10 +193,10 @@ const AdminEnterpriseAssets = () => {
 									<ErrorMessage name="equipment" />
 								</Error>
 
-								<Label htmlFor="model">Modelo</Label>
-								<Field name="model" type="text" />
+								<Label htmlFor="modelo">Modelo</Label>
+								<Field name="modelo" type="text" />
 								<Error>
-									<ErrorMessage name="model" />
+									<ErrorMessage name="modelo" />
 								</Error>
 
 								<Label htmlFor="hostname">Host Name</Label>
@@ -329,6 +329,7 @@ const AdminEnterpriseAssets = () => {
 					<tbody>
 						<tr>
 							<th>Equipamento</th>
+							<th>Modelo</th>
 							<th>Host Name</th>
 							<th>Usuário</th>
 							<th>Memória</th>
@@ -349,6 +350,7 @@ const AdminEnterpriseAssets = () => {
 							return (
 								<tr key={asset._id}>
 									<td>{asset.equipment}</td>
+									<td>{asset.modelo}</td>
 									<td>{asset.hostname}</td>
 									<td>{asset.user}</td>
 									<td>{asset.memory}</td>

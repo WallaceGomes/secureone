@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const enterpriseAsset = new Schema({
 	equipment: { type: String, required: true },
+	modelo: { type: String, required: true },
 	hostname: { type: String, required: true, unique: true },
 	user: { type: String, required: true },
 	memory: { type: String, required: true },

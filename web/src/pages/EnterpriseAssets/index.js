@@ -62,7 +62,7 @@ const EnterpriseAssets = () => {
 							console.log(values);
 							// try {
 							// 	const response = await sendRequest(
-							// 		'http://localhost:3333/api/active/create',
+							// 		'http://localhost:3333/api/cliets/asset',
 							// 		'POST',
 							// 		JSON.stringify({
 							// 			clientId: values.clientId,

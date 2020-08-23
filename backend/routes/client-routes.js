@@ -13,6 +13,8 @@ router.get('/active/users/:clientId', clientController.activeUsers);
 
 router.get('/equip/:clientId', clientController.equips);
 
+router.get('/assets', clientController.indexAssets);
+
 router.get('/assets/:clientId', clientController.getAssets);
 
 router.post('/users/emails/create', clientController.createEmails);

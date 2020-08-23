@@ -10,7 +10,7 @@ export const UsersContainer = styled.div`
 	margin-right: 3%;
 	margin-top: 30px;
 	margin-bottom: 20px;
-	margin-left: 20%;
+	margin-left: 18%;
 `;
 
 export const Header = styled.div`
@@ -58,7 +58,7 @@ export const Card = styled.div`
 	border-radius: 6px;
 	overflow: hidden;
 	background: white;
-	margin-left: 22%;
+	margin-left: 18%;
 
 	h1 {
 		margin-left: 2rem;
