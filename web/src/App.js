@@ -21,9 +21,7 @@ const ActiveUsers = React.lazy(() => import('./pages/ActiveUsers'));
 const MyContract = React.lazy(() => import('./pages/MyContract'));
 const ActiveAccounts = React.lazy(() => import('./pages/ActiveAccounts'));
 const ClientActiveUsers = React.lazy(() => import('./pages/ClientActiveUsers'));
-const AdminEnterpriseAssets = React.lazy(() =>
-	import('./pages/AdminEnterpriseAssets'),
-);
+const EnterpriseAssets = React.lazy(() => import('./pages/EnterpriseAssets'));
 const ClientEnterpriseAssets = React.lazy(() =>
 	import('./pages/ClientEnterpriseAssets'),
 );
@@ -31,6 +29,9 @@ const AdminEmailAccounts = React.lazy(() =>
 	import('./pages/AdminEmailAccounts'),
 );
 const AdminActiveUsers = React.lazy(() => import('./pages/AdminActiveUsers'));
+const AdminEnterpriseAssets = React.lazy(() =>
+	import('./pages/AdminEnterpriseAssets'),
+);
 
 let logoutTimer;
 
@@ -128,6 +129,9 @@ const App = () => {
 						<AdminActiveUsers />
 					</Route>
 					<Route path="/newasset" exact>
+						<EnterpriseAssets />
+					</Route>
+					<Route path="/admin/assets" exact>
 						<AdminEnterpriseAssets />
 					</Route>
 					<Redirect to="/" />

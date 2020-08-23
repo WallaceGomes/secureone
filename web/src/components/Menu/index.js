@@ -38,6 +38,9 @@ const Menu = () => {
 				<Link to="/newasset">
 					<MenuItem>Novo ativo empresa</MenuItem>
 				</Link>
+				<Link to="/admin/assets">
+					<MenuItem>Administrar ativos</MenuItem>
+				</Link>
 				<div>
 					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
 				</div>
