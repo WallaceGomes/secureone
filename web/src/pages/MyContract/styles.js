@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-	background-color: blue;
+	background-color: transparent;
 	width: 110vh;
 	height: 80vh;
 	margin: 0 auto;
@@ -13,6 +13,6 @@ export const Card = styled.div`
 	margin-left: 20%;
 
 	h1 {
-		color: #fff;
+		color: #000000;
 	}
 `;

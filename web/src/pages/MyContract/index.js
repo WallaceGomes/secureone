@@ -14,7 +14,7 @@ const MyContract = () => {
 		const storedData = JSON.parse(localStorage.getItem('userData'));
 
 		sendRequest(
-			`http://localhost:3333/api/client/info/${storedData.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/info/${storedData.userId}`,
 			'GET',
 			null,
 		).then((response) => {

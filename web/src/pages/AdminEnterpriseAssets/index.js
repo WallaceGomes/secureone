@@ -29,17 +29,19 @@ const AdminEnterpriseAssets = () => {
 
 	//falta auth
 	useEffect(() => {
-		// sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
+		// sendRequest('https://secureone-backend.herokuapp.com/api/users/clients', 'GET', null).then(
 		// 	(response) => {
 		// 		setClients(response);
 		// 	},
 		// );
 
-		sendRequest('http://localhost:3333/api/client/assets', 'GET', null).then(
-			(response) => {
-				setAssets(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/client/assets',
+			'GET',
+			null,
+		).then((response) => {
+			setAssets(response);
+		});
 	}, [sendRequest]);
 
 	const switchEditModeHandler = (asset) => {
@@ -68,7 +70,7 @@ const AdminEnterpriseAssets = () => {
 		event.preventDefault();
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/assets/${assetId}`,
+				`https://secureone-backend.herokuapp.com/api/client/assets/${assetId}`,
 				'DELETE',
 				null,
 			);
@@ -130,7 +132,7 @@ const AdminEnterpriseAssets = () => {
 									},
 								 */
 								await sendRequest(
-									`http://localhost:3333/api/client/assets/${values.assetId}`,
+									`https://secureone-backend.herokuapp.com/api/client/assets/${values.assetId}`,
 									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,

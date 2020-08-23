@@ -28,14 +28,14 @@ const AdminEmailAccounts = () => {
 
 	//falta auth
 	useEffect(() => {
-		// sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
+		// sendRequest('https://secureone-backend.herokuapp.com/api/users/clients', 'GET', null).then(
 		// 	(response) => {
 		// 		setClients(response);
 		// 	},
 		// );
 
 		sendRequest(
-			'http://localhost:3333/api/client/active/emails',
+			'https://secureone-backend.herokuapp.com/api/client/active/emails',
 			'GET',
 			null,
 		).then((response) => {
@@ -60,7 +60,7 @@ const AdminEmailAccounts = () => {
 		event.preventDefault();
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/active/email/${accountId}`,
+				`https://secureone-backend.herokuapp.com/api/client/active/email/${accountId}`,
 				'DELETE',
 				null,
 			);
@@ -106,7 +106,7 @@ const AdminEmailAccounts = () => {
 									},
 								 */
 								await sendRequest(
-									`http://localhost:3333/api/client/active/email/${values.accountId}`,
+									`https://secureone-backend.herokuapp.com/api/client/active/email/${values.accountId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

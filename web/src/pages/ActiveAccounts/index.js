@@ -14,7 +14,7 @@ const ActiveAccounts = () => {
 		const storedData = JSON.parse(localStorage.getItem('userData'));
 
 		sendRequest(
-			`http://localhost:3333/api/client/active/emails/${storedData.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/active/emails/${storedData.userId}`,
 			'GET',
 			null,
 		).then((response) => {

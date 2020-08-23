@@ -87,7 +87,7 @@ const Login = () => {
 							console.log(values);
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/users/changepass',
+									'https://secureone-backend.herokuapp.com/api/users/changepass',
 									'PATCH',
 									JSON.stringify({
 										email: values.email,
@@ -173,7 +173,7 @@ const Login = () => {
 							console.log(values);
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/users/login',
+									'https://secureone-backend.herokuapp.com/api/users/login',
 									'POST',
 									JSON.stringify({
 										email: values.email,

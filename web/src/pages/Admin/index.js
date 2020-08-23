@@ -27,11 +27,13 @@ const Admin = () => {
 
 	//falta auth
 	useEffect(() => {
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setUsers(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+		).then((response) => {
+			setUsers(response);
+		});
 	}, [sendRequest]);
 
 	const switchEditModeHandler = (user) => {
@@ -55,7 +57,7 @@ const Admin = () => {
 		event.preventDefault();
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/users/clients/${clientId}`,
+				`https://secureone-backend.herokuapp.com/api/users/clients/${clientId}`,
 				'DELETE',
 				null,
 			);
@@ -109,7 +111,7 @@ const Admin = () => {
 									},
 								 */
 								await sendRequest(
-									`http://localhost:3333/api/users/clients/${values.clientId}`,
+									`https://secureone-backend.herokuapp.com/api/users/clients/${values.clientId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

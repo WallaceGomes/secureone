@@ -14,11 +14,13 @@ const ActiveUsers = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	useEffect(() => {
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+		).then((response) => {
+			setClients(response);
+		});
 	}, [sendRequest]);
 
 	return (
@@ -55,30 +57,29 @@ const ActiveUsers = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
-							// try {
-							// 	const response = await sendRequest(
-							// 		'http://localhost:3333/api/active/create',
-							// 		'POST',
-							// 		JSON.stringify({
-							// 			name: values.name,
-							// 			email: values.email,
-							// 			password: values.password,
-							// 			teamviewer: values.teamviewer,
-							// 			tvpassword: values.tvpassword,
-							// 			phone: values.phone,
-							// 			login: values.login,
-							// 			clientId: values.clientId,
-							// 		}),
-							// 		{
-							// 			'Content-Type': 'application/json',
-							// 		},
-							// 	);
-							// 	console.log(clientId);
-							// 	console.log(response);
-							// 	setSubmitting(false);
-							// } catch (err) {
-							// 	console.error(err);
-							// }
+							try {
+								const response = await sendRequest(
+									'https://secureone-backend.herokuapp.com/api/active/create',
+									'POST',
+									JSON.stringify({
+										name: values.name,
+										email: values.email,
+										password: values.password,
+										teamviewer: values.teamviewer,
+										tvpassword: values.tvpassword,
+										phone: values.phone,
+										login: values.login,
+										clientId: values.clientId,
+									}),
+									{
+										'Content-Type': 'application/json',
+									},
+								);
+								console.log(response);
+								setSubmitting(false);
+							} catch (err) {
+								console.error(err);
+							}
 						}}
 					>
 						<Form>

@@ -15,18 +15,20 @@ const EmailAccounts = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	useEffect(() => {
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+		).then((response) => {
+			setClients(response);
+		});
 	}, [sendRequest]);
 
 	// const newEmailSubmitHandler = async (event) => {
 	// 	event.preventDefault();
 	// 	try {
 	// 		await sendRequest(
-	// 			'http://localhost:3333/api/client/users/emails/create',
+	// 			'https://secureone-backend.herokuapp.comapi/client/users/emails/create',
 	// 			'POST',
 	// 			JSON.stringify({
 	// 				clientId: clientId,
@@ -69,24 +71,25 @@ const EmailAccounts = () => {
 							/*
 							Tem que alterar a rota
 							*/
-							// try {
-							// 	await sendRequest(
-							// 		`http://localhost:3333/api/users/create/${values.clientId}`,
-							// 		'POST',
-							// 		JSON.stringify({
-							// 			name: values.clientName,
-							// 			email: values.clientEmail,
-							// 			license: values.clientAddress,
-							// 		}),
-							// 		{
-							// 			'Content-Type': 'application/json',
-							// 		},
-							// 	);
-							// 	setSubmitting(false);
-							// 	history.push('/admin');
-							// } catch (err) {
-							// 	console.error(err);
-							// }
+							try {
+								await sendRequest(
+									`https://secureone-backend.herokuapp.com/api/client/users/emails/create`,
+									'POST',
+									JSON.stringify({
+										name: values.name,
+										email: values.email,
+										license: values.license,
+										clientId: values.clientId,
+									}),
+									{
+										'Content-Type': 'application/json',
+									},
+								);
+								setSubmitting(false);
+								// history.push('/admin');
+							} catch (err) {
+								console.error(err);
+							}
 						}}
 					>
 						<Form>
