@@ -27,6 +27,9 @@ const AdminEnterpriseAssets = React.lazy(() =>
 const ClientEnterpriseAssets = React.lazy(() =>
 	import('./pages/ClientEnterpriseAssets'),
 );
+const AdminEmailAccounts = React.lazy(() =>
+	import('./pages/AdminEmailAccounts'),
+);
 
 let logoutTimer;
 
@@ -111,8 +114,11 @@ const App = () => {
 					<Route path="/newclient" exact>
 						<NewClient />
 					</Route>
-					<Route path="/emailaccounts" exact>
+					<Route path="/new/emailaccounts" exact>
 						<EmailAccounts />
+					</Route>
+					<Route path="/admin/emailaccounts" exact>
+						<AdminEmailAccounts />
 					</Route>
 					<Route path="/activeusers" exact>
 						<ActiveUsers />

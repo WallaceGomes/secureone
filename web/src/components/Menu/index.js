@@ -20,8 +20,11 @@ const Menu = () => {
 				<Link to="/admin">
 					<MenuItem>Administrar Clientes</MenuItem>
 				</Link>
-				<Link to="/emailaccounts">
+				<Link to="/new/emailaccounts">
 					<MenuItem>Contas Email</MenuItem>
+				</Link>
+				<Link to="/admin/emailaccounts">
+					<MenuItem>Administrar Emails</MenuItem>
 				</Link>
 				<Link to="/activeusers">
 					<MenuItem>Usuários Ativos</MenuItem>
@@ -30,7 +33,7 @@ const Menu = () => {
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
 				<Link to="/newasset">
-					<MenuItem>Ativos da empresa</MenuItem>
+					<MenuItem>Novo ativo empresa</MenuItem>
 				</Link>
 				<div>
 					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
