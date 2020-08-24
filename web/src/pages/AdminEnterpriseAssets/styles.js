@@ -35,10 +35,10 @@ export const ClientsTable = styled.table`
 		background-color: #fff;
 	} */
 	th {
-		font-size: 22px;
+		font-size: 18px;
 	}
 	td {
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	svg {

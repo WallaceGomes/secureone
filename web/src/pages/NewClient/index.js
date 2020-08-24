@@ -42,9 +42,11 @@ const NewClient = () => {
 					})}
 					onSubmit={async (values, { setSubmitting }) => {
 						console.log(values);
+						//https://secureone-backend.herokuapp.com
+						//http://localhost:3333
 						try {
 							await sendRequest(
-								'https://secureone-backend.herokuapp.com/api/users/create',
+								'http://localhost:3333/api/users/create',
 								'POST',
 								JSON.stringify({
 									name: values.clientName,

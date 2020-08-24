@@ -15,13 +15,13 @@ const EmailAccounts = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	useEffect(() => {
-		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/users/clients',
-			'GET',
-			null,
-		).then((response) => {
-			setClients(response);
-		});
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
+			(response) => {
+				setClients(response);
+			},
+		);
 	}, [sendRequest]);
 
 	// const newEmailSubmitHandler = async (event) => {
@@ -68,12 +68,11 @@ const EmailAccounts = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
-							/*
-							Tem que alterar a rota
-							*/
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
 							try {
 								await sendRequest(
-									`https://secureone-backend.herokuapp.com/api/client/users/emails/create`,
+									'http://localhost:3333/api/client/users/emails/create',
 									'POST',
 									JSON.stringify({
 										name: values.name,

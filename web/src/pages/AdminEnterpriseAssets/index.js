@@ -35,13 +35,13 @@ const AdminEnterpriseAssets = () => {
 		// 	},
 		// );
 
-		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/client/assets',
-			'GET',
-			null,
-		).then((response) => {
-			setAssets(response);
-		});
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+		sendRequest('http://localhost:3333/api/client/assets', 'GET', null).then(
+			(response) => {
+				setAssets(response);
+			},
+		);
 	}, [sendRequest]);
 
 	const switchEditModeHandler = (asset) => {
@@ -68,9 +68,11 @@ const AdminEnterpriseAssets = () => {
 
 	const deleteClientHandler = async (assetId, event) => {
 		event.preventDefault();
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`https://secureone-backend.herokuapp.com/api/client/assets/${assetId}`,
+				`http://localhost:3333/api/client/assets/${assetId}`,
 				'DELETE',
 				null,
 			);
@@ -131,8 +133,10 @@ const AdminEnterpriseAssets = () => {
 										Authorization: `Bearer ${storedData.token}`,
 									},
 								 */
+								//https://secureone-backend.herokuapp.com
+								//http://localhost:3333
 								await sendRequest(
-									`https://secureone-backend.herokuapp.com/api/client/assets/${values.assetId}`,
+									`http://localhost:3333/api/client/assets/${values.assetId}`,
 									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,

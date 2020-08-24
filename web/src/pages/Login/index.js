@@ -85,9 +85,11 @@ const Login = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'https://secureone-backend.herokuapp.com/api/users/changepass',
+									'http://localhost:3333/api/users/changepass',
 									'PATCH',
 									JSON.stringify({
 										email: values.email,
@@ -171,9 +173,11 @@ const Login = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'https://secureone-backend.herokuapp.com/api/users/login',
+									'http://localhost:3333/api/users/login',
 									'POST',
 									JSON.stringify({
 										email: values.email,

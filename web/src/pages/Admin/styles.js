@@ -38,7 +38,7 @@ export const ClientsTable = styled.table`
 		font-size: 22px;
 	}
 	td {
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	svg {

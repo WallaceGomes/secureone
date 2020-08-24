@@ -34,8 +34,10 @@ const AdminEmailAccounts = () => {
 		// 	},
 		// );
 
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
 		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/client/active/emails',
+			'http://localhost:3333/api/client/active/emails',
 			'GET',
 			null,
 		).then((response) => {
@@ -58,9 +60,11 @@ const AdminEmailAccounts = () => {
 
 	const deleteClientHandler = async (accountId, event) => {
 		event.preventDefault();
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`https://secureone-backend.herokuapp.com/api/client/active/email/${accountId}`,
+				`http://localhost:3333/api/client/active/email/${accountId}`,
 				'DELETE',
 				null,
 			);
@@ -105,8 +109,10 @@ const AdminEmailAccounts = () => {
 										Authorization: `Bearer ${storedData.token}`,
 									},
 								 */
+								//https://secureone-backend.herokuapp.com
+								//http://localhost:3333
 								await sendRequest(
-									`https://secureone-backend.herokuapp.com/api/client/active/email/${values.accountId}`,
+									`http://localhost:3333/api/client/active/email/${values.accountId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

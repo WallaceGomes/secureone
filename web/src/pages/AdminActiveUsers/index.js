@@ -34,13 +34,14 @@ const AdminActiveUsers = () => {
 		// 	},
 		// );
 
-		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/active',
-			'GET',
-			null,
-		).then((response) => {
-			setUsers(response);
-		});
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+
+		sendRequest('http://localhost:3333/api/active', 'GET', null).then(
+			(response) => {
+				setUsers(response);
+			},
+		);
 	}, [sendRequest]);
 
 	const switchEditModeHandler = (user) => {
@@ -61,9 +62,11 @@ const AdminActiveUsers = () => {
 
 	const deleteClientHandler = async (userId, event) => {
 		event.preventDefault();
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`https://secureone-backend.herokuapp.com/api/active/${userId}`,
+				`http://localhost:3333/api/active/${userId}`,
 				'DELETE',
 				null,
 			);
@@ -117,8 +120,10 @@ const AdminActiveUsers = () => {
 										Authorization: `Bearer ${storedData.token}`,
 									},
 								 */
+								//https://secureone-backend.herokuapp.com
+								//http://localhost:3333
 								await sendRequest(
-									`https://secureone-backend.herokuapp.com/api/active/${values.userId}`,
+									`http://localhost:3333/api/active/${values.userId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

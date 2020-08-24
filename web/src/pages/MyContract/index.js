@@ -13,8 +13,10 @@ const MyContract = () => {
 	useEffect(() => {
 		const storedData = JSON.parse(localStorage.getItem('userData'));
 
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
 		sendRequest(
-			`https://secureone-backend.herokuapp.com/api/client/info/${storedData.userId}`,
+			`http://localhost:3333/api/client/info/${storedData.userId}`,
 			'GET',
 			null,
 		).then((response) => {

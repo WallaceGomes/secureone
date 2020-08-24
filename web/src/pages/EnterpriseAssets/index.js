@@ -14,13 +14,13 @@ const EnterpriseAssets = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	useEffect(() => {
-		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/users/clients',
-			'GET',
-			null,
-		).then((response) => {
-			setClients(response);
-		});
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
+			(response) => {
+				setClients(response);
+			},
+		);
 	}, [sendRequest]);
 
 	return (
@@ -62,9 +62,11 @@ const EnterpriseAssets = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'https://secureone-backend.herokuapp.com/api/client/assets',
+									'http://localhost:3333/api/client/assets',
 									'POST',
 									JSON.stringify({
 										clientId: values.clientId,
@@ -175,6 +177,11 @@ const EnterpriseAssets = () => {
 											<option value="8GB">8GB</option>
 											<option value="12GB">12GB</option>
 											<option value="16GB">16GB</option>
+											<option value="32GB">32GB</option>
+											<option value="64GB">64GB</option>
+											<option value="128GB">128GB</option>
+											<option value="256BB">256BB</option>
+											<option value="Outros">Outros</option>
 										</Field>
 										<Error>
 											<ErrorMessage name="memory" />
@@ -187,6 +194,7 @@ const EnterpriseAssets = () => {
 											<option defaultChecked>Selecione</option>
 											<option value="Windows 10 Pro">Windows 10 Pro</option>
 											<option value="Linux Ubunto">Linux Ubunto</option>
+											<option value="Outros">Outros</option>
 										</Field>
 										<Error>
 											<ErrorMessage name="so" />

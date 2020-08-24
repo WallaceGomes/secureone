@@ -14,13 +14,13 @@ const ActiveUsers = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	useEffect(() => {
-		sendRequest(
-			'https://secureone-backend.herokuapp.com/api/users/clients',
-			'GET',
-			null,
-		).then((response) => {
-			setClients(response);
-		});
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
+			(response) => {
+				setClients(response);
+			},
+		);
 	}, [sendRequest]);
 
 	return (
@@ -57,9 +57,11 @@ const ActiveUsers = () => {
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
 							console.log(values);
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'https://secureone-backend.herokuapp.com/api/active/create',
+									'http://localhost:3333/api/active/create',
 									'POST',
 									JSON.stringify({
 										name: values.name,
