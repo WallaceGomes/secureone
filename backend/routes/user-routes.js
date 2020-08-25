@@ -11,6 +11,8 @@ router.get('/clients', userController.index);
 
 router.patch('/changepass', userController.changePassword);
 
+router.patch('/resetpass/:userId', userController.resetPass);
+
 router.patch('/clients/:userId', userController.update);
 
 router.delete('/clients/:userId', userController.delete);

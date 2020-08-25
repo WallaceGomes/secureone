@@ -95,7 +95,7 @@ const Admin = () => {
 				null,
 			);
 
-			if (response.message === 'Password reset ok') {
+			if (response.message === 'Password reset success') {
 				setModalText('Senha resetada com sucesso!');
 				switchModalState();
 			}

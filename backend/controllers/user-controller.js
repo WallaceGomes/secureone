@@ -143,6 +143,55 @@ exports.login = async (req, res, next) => {
 	}
 };
 
+exports.resetPass = async (req, res, next) => {
+	const { userId } = req.params;
+
+	const password = process.env.DEFAULT_PASS;
+
+	try {
+		const user = await User.findOne({ _id: userId });
+
+		if (!user) {
+			const error = new HttpError(
+				'Could not find any user for the provided ID',
+				404,
+			);
+			return next(error);
+		}
+	} catch (err) {
+		const error = new HttpError('Unable to find the user', 500);
+		return next(error);
+	}
+
+	let hashedPassword;
+	try {
+		hashedPassword = await bcrypt.hash(password, 12);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError(
+			'Could not create user, try again later.(hash error)',
+			500,
+		);
+		return next(error);
+	}
+
+	const updatedUser = {
+		password: hashedPassword,
+		updated_at: Date.now(),
+		confirmed: false,
+	};
+
+	try {
+		await User.findOneAndUpdate({ _id: userId }, updatedUser);
+	} catch (err) {
+		const error = new HttpError('Unexpected error', 500);
+		console.log(err);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'Password reset success' });
+};
+
 exports.changePassword = async (req, res, next) => {
 	const { email, password } = req.body;
 
