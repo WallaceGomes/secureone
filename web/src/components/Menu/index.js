@@ -32,7 +32,7 @@ const Menu = () => {
 				<Link to="/admin/activeusers">
 					<MenuItem>Admin Usuários Ativos</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/new/equipment">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
 				<Link to="/newasset">

@@ -33,6 +33,7 @@ const AdminActiveUsers = React.lazy(() => import('./pages/AdminActiveUsers'));
 const AdminEnterpriseAssets = React.lazy(() =>
 	import('./pages/AdminEnterpriseAssets'),
 );
+const NewEquipments = React.lazy(() => import('./pages/NewEquipment'));
 
 let logoutTimer;
 
@@ -96,9 +97,6 @@ const App = () => {
 				new Date(storedData.expirationDate),
 			);
 		}
-
-		//!!!!!!NOTA!!!!!!
-		//TIRAR ISSO DAQUI DEPOIS
 	}, [login]);
 
 	let routes;
@@ -134,6 +132,9 @@ const App = () => {
 					</Route>
 					<Route path="/admin/assets" exact>
 						<AdminEnterpriseAssets />
+					</Route>
+					<Route path="/new/equipment" exact>
+						<NewEquipments />
 					</Route>
 					<Redirect to="/" />
 				</Switch>
