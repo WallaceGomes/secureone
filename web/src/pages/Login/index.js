@@ -195,6 +195,11 @@ const Login = () => {
 									setIsConfirmMode(true);
 									return;
 								}
+								if (response.message === 'Cliente inativo') {
+									setModalText('Login negado, sua conta está inativa!');
+									switchModalState();
+									return;
+								}
 								auth.login(response.userId, response.token, response.role);
 							} catch (err) {
 								console.error(err);

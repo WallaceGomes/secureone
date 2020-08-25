@@ -114,6 +114,10 @@ exports.login = async (req, res, next) => {
 		return next(error);
 	}
 
+	if (user.status === 'Inativo') {
+		return res.status(200).json({ message: 'Cliente inativo' });
+	}
+
 	if (user.confirmed) {
 		let token;
 		try {
