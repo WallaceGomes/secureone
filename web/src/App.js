@@ -34,6 +34,7 @@ const AdminEnterpriseAssets = React.lazy(() =>
 	import('./pages/AdminEnterpriseAssets'),
 );
 const NewEquipments = React.lazy(() => import('./pages/NewEquipment'));
+const AdminEquipments = React.lazy(() => import('./pages/AdminEquipments'));
 
 let logoutTimer;
 
@@ -135,6 +136,9 @@ const App = () => {
 					</Route>
 					<Route path="/new/equipment" exact>
 						<NewEquipments />
+					</Route>
+					<Route path="/admin/equipments" exact>
+						<AdminEquipments />
 					</Route>
 					<Redirect to="/" />
 				</Switch>

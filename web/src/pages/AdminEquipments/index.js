@@ -1,103 +1,156 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
-import { Container, Card, Label, Error } from './styles';
+import {
+	Container,
+	UsersContainer,
+	Header,
+	ClientsTable,
+	Card,
+	Error,
+	Label,
+} from './styles';
 import Menu from '../../components/Menu';
-import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { useHttpClient } from '../../hooks/http-hook';
 
-import Button from '../../components/Button';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Button from '../../components/Button';
 
-const NewEquipments = () => {
-	const [clients, setClients] = useState([]);
-
+const AdminEquipments = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
+	const [equipments, setEquipments] = useState([]);
+	// const [clients, setClients] = useState([]);
+	const [initialFormValues, setInitialFormValues] = useState();
+	const [isEditMode, setIsEditMode] = useState(false);
+
+	//falta auth
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest(
+			'http://localhost:3333/api/client/equipments',
+			'GET',
+			null,
+		).then((response) => {
+			setEquipments(response);
+		});
 	}, [sendRequest]);
 
-	return (
-		<>
+	const switchEditModeHandler = (equipment) => {
+		if (equipment) {
+			const initialvalues = {
+				equipment: equipment.equipment,
+				version: equipment.version,
+				type: equipment.type,
+				due_date: equipment.due_date,
+				modalidade: equipment.modalidade,
+				equipmentId: equipment._id,
+			};
+			setInitialFormValues(initialvalues);
+		}
+		setIsEditMode((prevMode) => !prevMode);
+	};
+
+	const deleteClientHandler = async (equipmentId, event) => {
+		event.preventDefault();
+		//https://secureone-backend.herokuapp.com
+		//http://localhost:3333
+		try {
+			const response = await sendRequest(
+				`http://localhost:3333/api/client/equipment/${equipmentId}`,
+				'DELETE',
+				null,
+			);
+			const index = equipments.findIndex(
+				(equipment) => equipment._id === equipmentId,
+			);
+			if (index !== -1) {
+				const auxEquipments = [...equipments];
+				auxEquipments.splice(index, 1);
+				setEquipments(auxEquipments);
+			}
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+			alert(err.message);
+		}
+	};
+
+	if (isEditMode) {
+		return (
 			<Container>
 				<Menu />
-				{isLoading && <LoadingSpinner asOverlay />}
 				<Card>
 					<Formik
 						initialValues={{
-							equipment: '',
-							version: '',
-							type: '',
-							due_date: '',
-							clientId: '',
-							modalidade: '',
-							modelo: '',
+							equipment: initialFormValues.equipment,
+							version: initialFormValues.version,
+							type: initialFormValues.type,
+							due_date: initialFormValues.due_date,
+							modalidade: initialFormValues.modalidade,
+							equipmentId: initialFormValues.equipmentId,
 						}}
 						validationSchema={Yup.object({
-							clientId: Yup.string().required('Selecione o cliente'),
-							equipment: Yup.string().required('Selecione o equipamento'),
+							equipment: Yup.string().required('Campo obrigatório'),
 							version: Yup.string().required('Campo obrigatório'),
 							type: Yup.string().required('Campo obrigatório'),
 							due_date: Yup.string().required('Campo obrigatório'),
 							modalidade: Yup.string().required('Campo obrigatório'),
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
-							console.log(values);
-							//https://secureone-backend.herokuapp.com
-							//http://localhost:3333
 							try {
+								//vai precisar disso aqui depois
+								/**
+								 * {
+										'Content-Type': 'application/json',
+										Authorization: `Bearer ${storedData.token}`,
+									},
+								 */
+								//https://secureone-backend.herokuapp.com
+								//http://localhost:3333
 								await sendRequest(
-									'http://localhost:3333/api/client/equipments',
-									'POST',
+									`http://localhost:3333/api/client/equipment/${values.equipmentId}`,
+									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,
 										version: values.version,
 										type: values.type,
 										due_date: values.due_date,
 										modalidade: values.modalidade,
-										modelo: values.modelo,
-										clientId: values.clientId,
 									}),
 									{
 										'Content-Type': 'application/json',
 									},
 								);
+								const editedEquipment = {
+									_id: values.equipmentId,
+									equipment: values.equipment,
+									version: values.version,
+									type: values.type,
+									due_date: values.due_date,
+									modalidade: values.modalidade,
+								};
+								const index = equipments.findIndex(
+									(equipment) => equipment._id === values.equipmentId,
+								);
+								if (index !== -1) {
+									const auxEquipments = [...equipments];
+									auxEquipments[index] = editedEquipment;
+									setEquipments(auxEquipments);
+								}
 								setSubmitting(false);
-								// history.push('/admin');
 							} catch (err) {
-								console.error(err);
+								console.log(err);
 							}
+							switchEditModeHandler();
 						}}
 					>
 						<Form>
 							<div>
-								<h1>Novo equipamento</h1>
-								<Label htmlFor="clientId">Cliente</Label>
-								<Field
-									name="clientId"
-									as="select"
-									placeholder="Selecione o cliente"
-								>
-									<option defaultChecked>Selecione o cliente</option>
-									{clients.map((client) => {
-										return (
-											<option key={client._id} value={client._id}>
-												{client.name}
-											</option>
-										);
-									})}
-								</Field>
-
-								<Error>
-									<ErrorMessage name="clientId" />
-								</Error>
+								<h1>Editar equipamento</h1>
 
 								<Label htmlFor="equipment">Equipamento</Label>
 								<Field name="equipment" as="select">
@@ -186,13 +239,13 @@ const NewEquipments = () => {
 									<ErrorMessage name="equipment" />
 								</Error>
 
-								<Label htmlFor="modelo">Modelo</Label>
-								<Field name="modelo" type="text" />
+								<Label htmlFor="type">Modelo</Label>
+								<Field name="type" type="text" />
 								<Error>
-									<ErrorMessage name="modelo" />
+									<ErrorMessage name="type" />
 								</Error>
 
-								<Label htmlFor="version">Versão de Firmware</Label>
+								<Label htmlFor="version">Versão do Firmware</Label>
 								<Field name="version" type="text" />
 								<Error>
 									<ErrorMessage name="version" />
@@ -210,13 +263,67 @@ const NewEquipments = () => {
 									<ErrorMessage name="modalidade" />
 								</Error>
 							</div>
-							<Button type="submit">Cadastrar</Button>
+							<Button type="submit">Editar</Button>
+							<Button onClick={switchEditModeHandler}> Voltar </Button>
 						</Form>
 					</Formik>
 				</Card>
 			</Container>
-		</>
+		);
+	}
+
+	return (
+		<Container>
+			<Menu />
+			<UsersContainer>
+				<Header>
+					<h1>Lista de equipamentos cadastrados</h1>
+				</Header>
+				{isLoading && <LoadingSpinner />}
+				<ClientsTable>
+					<tbody>
+						<tr>
+							<th>Equipamento</th>
+							<th>Modelo</th>
+							<th>Versão Firmware</th>
+							<th>Data de vencimento</th>
+							<th>Modalidade</th>
+						</tr>
+					</tbody>
+					{equipments &&
+						equipments.map((equipment) => {
+							//erro causado por falta de um tbody em volta da tabela
+							return (
+								<tr key={equipment._id}>
+									<td>{equipment.equipment}</td>
+									<td>{equipment.type}</td>
+									<td>{equipment.version}</td>
+									<td>{equipment.due_date}</td>
+									<td>{equipment.modalidade}</td>
+
+									<td>
+										<AiFillEdit
+											onClick={() => switchEditModeHandler(equipment)}
+											style={{ fill: 'blue' }}
+											size={20}
+										/>
+									</td>
+									<td>
+										<AiFillDelete
+											onClick={(event) =>
+												deleteClientHandler(equipment._id, event)
+											}
+											style={{ fill: 'red' }}
+											size={20}
+										/>
+									</td>
+								</tr>
+							);
+						})}
+				</ClientsTable>
+			</UsersContainer>
+		</Container>
 	);
 };
 
-export default NewEquipments;
+export default AdminEquipments;

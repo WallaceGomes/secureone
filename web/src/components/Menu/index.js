@@ -35,6 +35,9 @@ const Menu = () => {
 				<Link to="/new/equipment">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
+				<Link to="/admin/equipments">
+					<MenuItem>Admin Equips Watchguard</MenuItem>
+				</Link>
 				<Link to="/newasset">
 					<MenuItem>Novo ativo empresa</MenuItem>
 				</Link>
