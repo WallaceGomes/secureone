@@ -49,7 +49,7 @@ export const DataTable = styled.table`
 		font-size: 22px;
 	}
 	td {
-		font-size: 16px;
+		font-size: 14px;
 	}
 
 	svg {

@@ -345,7 +345,7 @@ const AdminEnterpriseAssets = () => {
 							<th>Sistema OP</th>
 							<th>Licenciado</th>
 							<th>Antivírus</th>
-							<th>TDR (Watchguard)</th>
+							<th>TDR</th>
 							<th>Em uso</th>
 							<th>Editar</th>
 							<th>Deletar</th>

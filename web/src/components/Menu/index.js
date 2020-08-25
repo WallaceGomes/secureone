@@ -14,9 +14,6 @@ const Menu = () => {
 	if (auth.userRole === 'admin') {
 		menu = (
 			<MenuUl>
-				<Link to="/newclient">
-					<MenuItem>Novo Cliente</MenuItem>
-				</Link>
 				<Link to="/admin">
 					<MenuItem>Administrar Clientes</MenuItem>
 				</Link>

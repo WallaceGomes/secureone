@@ -49,6 +49,7 @@ const Admin = () => {
 	const [users, setUsers] = useState([]);
 	const [initialFormValues, setInitialFormValues] = useState();
 	const [isEditMode, setIsEditMode] = useState(false);
+	const [isNewClientMode, setIsNewClientMode] = useState(false);
 
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalText, setModalText] = useState('');
@@ -83,6 +84,10 @@ const Admin = () => {
 			setInitialFormValues(initialvalues);
 		}
 		setIsEditMode((prevMode) => !prevMode);
+	};
+
+	const switchNewClientMode = () => {
+		setIsNewClientMode((prevMode) => !prevMode);
 	};
 
 	const resetPassHandler = async (user, event) => {
@@ -126,6 +131,136 @@ const Admin = () => {
 			alert(err.message);
 		}
 	};
+
+	if (isNewClientMode) {
+		return (
+			<Container>
+				<Menu />
+				{isLoading && <LoadingSpinner asOverlay />}
+				<Card>
+					<Formik
+						initialValues={{
+							clientName: '',
+							clientEmail: '',
+							clientAddress: '',
+							clientCNPJ: '',
+							clientContract: '',
+							clientActive: '',
+							clientDueDate: '',
+						}}
+						validationSchema={Yup.object({
+							clientName: Yup.string().required('Campo obrigatório'),
+							clientEmail: Yup.string()
+								.email('Formato de email inválido')
+								.required('Campo obrigatório'),
+							clientAddress: Yup.string().required('Campo obrigatório'),
+							clientCNPJ: Yup.string().required('Campo obrigatório'),
+							clientContract: Yup.string().required('Campo obrigatório'),
+							clientActive: Yup.string().required('Campo obrigatório'),
+							clientDueDate: Yup.string().required('Campo obrigatório'),
+						})}
+						onSubmit={async (values, { setSubmitting }) => {
+							console.log(values);
+							//https://secureone-backend.herokuapp.com
+							//http://localhost:3333
+							try {
+								const response = await sendRequest(
+									'http://localhost:3333/api/users/create',
+									'POST',
+									JSON.stringify({
+										name: values.clientName,
+										email: values.clientEmail,
+										address: values.clientAddress,
+										cnpj: values.clientCNPJ,
+										contract: values.clientContract,
+										status: values.clientActive,
+										due_date: values.clientDueDate,
+									}),
+									{
+										'Content-Type': 'application/json',
+									},
+								);
+								setSubmitting(false);
+								// history.push('/admin');
+								const newUser = {
+									_id: response._id,
+									name: response.name,
+									email: response.email,
+									address: response.address,
+									cnpj: response.cnpj,
+									contract: response.contract,
+									due_date: response.due_date,
+									status: response.status,
+								};
+
+								const auxUsers = [...users];
+								auxUsers.push(newUser);
+								setUsers(auxUsers);
+								setModalText('Cliente adicionado com sucesso!');
+								switchModalState();
+								switchNewClientMode();
+							} catch (err) {
+								console.error(err);
+							}
+						}}
+					>
+						<Form>
+							<div>
+								<h1>Novo Cliente</h1>
+
+								<Label htmlFor="clientName">Nome</Label>
+								<Field name="clientName" type="text" />
+								<Error>
+									<ErrorMessage name="clientName" />
+								</Error>
+
+								<Label htmlFor="clientEmail">Email</Label>
+								<Field name="clientEmail" type="email" />
+								<Error>
+									<ErrorMessage name="clientEmail" />
+								</Error>
+
+								<Label htmlFor="clientAddress">Endereço</Label>
+								<Field name="clientAddress" type="text" />
+								<Error>
+									<ErrorMessage name="clientAddress" />
+								</Error>
+
+								<Label htmlFor="clientCNPJ">CNPJ</Label>
+								<Field name="clientCNPJ" type="text" />
+								<Error>
+									<ErrorMessage name="clientCNPJ" />
+								</Error>
+
+								<Label htmlFor="clientContract">Contrato</Label>
+								<Field name="clientContract" type="text" />
+								<Error>
+									<ErrorMessage name="clientContract" />
+								</Error>
+
+								<Label htmlFor="clientActive">Status</Label>
+								<Field name="clientActive" as="select">
+									<option defaultChecked>Selecione</option>
+									<option value="Ativo">Ativo</option>
+									<option value="Inativo">Inativo</option>
+								</Field>
+								<Error>
+									<ErrorMessage name="clientActive" />
+								</Error>
+
+								<Label htmlFor="clientDueDate">Vencimento do contrato</Label>
+								<Field name="clientDueDate" type="date" />
+								<Error>
+									<ErrorMessage name="clientDueDate" />
+								</Error>
+							</div>
+							<Button type="submit">Cadastrar</Button>
+						</Form>
+					</Formik>
+				</Card>
+			</Container>
+		);
+	}
 
 	if (isEditMode) {
 		return (
@@ -200,10 +335,12 @@ const Admin = () => {
 									setUsers(auxUsers);
 								}
 								setSubmitting(false);
+								setModalText('Cliente editado com sucesso!');
+								switchModalState();
+								switchEditModeHandler();
 							} catch (err) {
 								console.log(err);
 							}
-							switchEditModeHandler();
 						}}
 					>
 						<Form>
@@ -270,6 +407,7 @@ const Admin = () => {
 			<UsersContainer>
 				<Header>
 					<h1>Lista de clientes</h1>
+					<Button onClick={switchNewClientMode}>Adicionar Novo Cliente</Button>
 				</Header>
 				{isLoading && <LoadingSpinner />}
 				<Modal
