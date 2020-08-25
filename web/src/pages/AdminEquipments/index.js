@@ -288,6 +288,8 @@ const AdminEquipments = () => {
 							<th>Versão Firmware</th>
 							<th>Data de vencimento</th>
 							<th>Modalidade</th>
+							<th>Editar</th>
+							<th>Deletar</th>
 						</tr>
 					</tbody>
 					{equipments &&

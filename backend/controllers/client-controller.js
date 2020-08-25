@@ -3,6 +3,7 @@ const User = require('../models/user');
 const EmailsUser = require('../models/clientEmailsUser');
 const EnterpriseAsset = require('../models/enterpriseAsset');
 const HttpError = require('../models/http-error');
+const Equipment = require('../models/equipments');
 const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
@@ -122,8 +123,6 @@ exports.deleteEmailAccount = async (req, res, next) => {
 
 exports.activeUsers = async (req, res, next) => {};
 
-exports.equips = async (req, res, next) => {};
-
 exports.indexAssets = async (req, res, next) => {
 	try {
 		const assets = await EnterpriseAsset.find();
@@ -136,7 +135,7 @@ exports.indexAssets = async (req, res, next) => {
 	}
 };
 
-exports.getAssets = async (req, res, next) => {
+exports.getAsset = async (req, res, next) => {
 	const { clientId } = req.params;
 
 	try {
@@ -155,7 +154,7 @@ exports.getAssets = async (req, res, next) => {
 	}
 };
 
-exports.createAssets = async (req, res, next) => {
+exports.createAsset = async (req, res, next) => {
 	const {
 		equipment,
 		modelo,
@@ -332,4 +331,141 @@ exports.createEmails = async (req, res, next) => {
 	}
 
 	return res.status(200).json(createdEmailUser);
+};
+
+exports.indexEquipments = async (req, res, next) => {
+	try {
+		const allEquips = await Equipment.find();
+
+		return res.status(200).json(allEquips);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the equipments', 500);
+		return next(error);
+	}
+};
+
+exports.getEquipments = async (req, res, next) => {
+	const { clientId } = req.params;
+
+	try {
+		const clientExists = await User.findById({ _id: clientId }, '-password');
+		if (!clientExists) {
+			return res.status(404).json('User not exist');
+		}
+
+		const equips = await Equipment.find({ clientId: clientId });
+
+		return res.status(200).json(equips);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the assets', 500);
+		return next(error);
+	}
+};
+
+exports.createEquipment = async (req, res, next) => {
+	const { clientId, equipment, version, type, due_date, modalidade } = req.body;
+
+	try {
+		const checkUser = await User.findOne({ _id: clientId });
+		if (!checkUser) {
+			const error = new HttpError('User(client) not exists', 422);
+			return next(error);
+		}
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Connection error, user(client) check DB');
+		return next(error);
+	}
+
+	const createdEquip = new Equipment({
+		clientId,
+		equipment,
+		version,
+		type,
+		due_date,
+		modalidade,
+	});
+
+	try {
+		await createdEquip.save();
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Create equipment failed (save)', 500);
+		return next(error);
+	}
+
+	return res.status(200).json(createdEquip);
+};
+
+exports.editEquipment = async (req, res, next) => {
+	const { equipmentId } = req.params;
+	const { equipment, version, type, due_date, modalidade } = req.body;
+
+	const updatedEquipment = {
+		equipment,
+		version,
+		type,
+		due_date,
+		modalidade,
+		updated_at: Date.now(),
+	};
+
+	try {
+		const equip = await Equipment.findOneAndUpdate(
+			{ _id: equipmentId },
+			updatedEquipment,
+		);
+
+		if (!equip) {
+			const error = new HttpError(
+				'Could not find the equipent for the provided ID',
+				404,
+			);
+			return next(error);
+		}
+
+		res.status(200).json({ message: 'Equipment updated!' });
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to edit the Equipment', 500);
+		return next(error);
+	}
+};
+
+exports.deleteEquipment = async (req, res, next) => {
+	const { equipmentId } = req.params;
+
+	let equip;
+
+	try {
+		equip = await Equipment.findById({ _id: equipmentId });
+
+		if (!equip) {
+			const error = new HttpError(
+				'Could not find any equipment for the provided id',
+				404,
+			);
+			return next(error);
+		}
+	} catch (err) {
+		const error = new HttpError('Error trying to find the equipment', 500);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await equip.remove({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError(
+			'Error deleting the equipment, DB session',
+			500,
+		);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'Equipment deleted!' });
 };
