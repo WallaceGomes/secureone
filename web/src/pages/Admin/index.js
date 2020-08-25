@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
+import { AiFillEdit, AiFillDelete, AiOutlineRollback } from 'react-icons/ai';
+import Modal from 'react-modal';
 
 import {
 	Container,
@@ -18,12 +19,43 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
 
+//Modal styles
+const customStyles = {
+	overlay: {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		backgroundColor: 'rgba(0, 0, 0, 0.75)',
+	},
+	content: {
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		transform: 'translate(-50%, -50%)',
+		backgroundColor: '#fff',
+		color: '#000',
+		fontWeight: 'bold',
+	},
+};
+
+Modal.setAppElement('#root');
+
 const Admin = () => {
 	const { sendRequest, isLoading } = useHttpClient();
 
 	const [users, setUsers] = useState([]);
 	const [initialFormValues, setInitialFormValues] = useState();
 	const [isEditMode, setIsEditMode] = useState(false);
+
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [modalText, setModalText] = useState('');
+
+	function switchModalState() {
+		setIsOpen((prevMode) => !prevMode);
+	}
 
 	//falta auth
 	useEffect(() => {
@@ -51,6 +83,25 @@ const Admin = () => {
 			setInitialFormValues(initialvalues);
 		}
 		setIsEditMode((prevMode) => !prevMode);
+	};
+
+	const resetPassHandler = async (user, event) => {
+		event.preventDefault();
+
+		try {
+			const response = await sendRequest(
+				`http://localhost:3333/api/users/clients/resetpass/${user._id}`,
+				'PATCH',
+				null,
+			);
+
+			if (response.message === 'Password reset ok') {
+				setModalText('Senha resetada com sucesso!');
+				switchModalState();
+			}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const deleteClientHandler = async (clientId, event) => {
@@ -221,6 +272,17 @@ const Admin = () => {
 					<h1>Lista de clientes</h1>
 				</Header>
 				{isLoading && <LoadingSpinner />}
+				<Modal
+					isOpen={modalIsOpen}
+					onRequestClose={switchModalState}
+					style={customStyles}
+					contentLabel="Alert Modal"
+				>
+					<div>{modalText}</div>
+					<br />
+					<br />
+					<Button onClick={switchModalState}>OK</Button>
+				</Modal>
 				<ClientsTable>
 					<tbody>
 						<tr>
@@ -232,6 +294,7 @@ const Admin = () => {
 							<th>Vencimento</th>
 							<th>Editar</th>
 							<th>Deletar</th>
+							<th>Reset</th>
 						</tr>
 					</tbody>
 					{users &&
@@ -262,6 +325,13 @@ const Admin = () => {
 										<AiFillDelete
 											onClick={(event) => deleteClientHandler(user._id, event)}
 											style={{ fill: 'red' }}
+											size={20}
+										/>
+									</td>
+									<td>
+										<AiOutlineRollback
+											onClick={() => resetPassHandler(user)}
+											style={{ fill: 'gray' }}
 											size={20}
 										/>
 									</td>

@@ -48,6 +48,35 @@ export const ClientsTable = styled.table`
 	}
 `;
 
+export const WarningButton = styled.button`
+	height: 35px;
+	width: 90px;
+	border: 2px solid #808080;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 3px;
+	font-size: 14px;
+	color: #fff;
+	background: #ff0000;
+
+	&:hover {
+		background: #cc0000;
+		transition: 0.3s;
+		border: 2px solid #333333;
+	}
+
+	&:disabled,
+	&:hover:disabled,
+	&:active:disabled {
+		background: #ccc;
+		color: #979797;
+		border-color: #ccc;
+		cursor: not-allowed;
+	}
+`;
+
 export const Card = styled.div`
 	width: 35%;
 	margin-left: 12%;

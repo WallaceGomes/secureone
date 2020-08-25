@@ -294,13 +294,18 @@ const AdminEquipments = () => {
 					</tbody>
 					{equipments &&
 						equipments.map((equipment) => {
+							const dueDate = new Date(equipment.due_date);
+							const date = dueDate.getDate();
+							const month = dueDate.getMonth();
+							const year = dueDate.getFullYear();
+							const dateString = date + 1 + '/' + (month + 1) + '/' + year;
 							//erro causado por falta de um tbody em volta da tabela
 							return (
 								<tr key={equipment._id}>
 									<td>{equipment.equipment}</td>
 									<td>{equipment.type}</td>
 									<td>{equipment.version}</td>
-									<td>{equipment.due_date}</td>
+									<td>{dateString}</td>
 									<td>{equipment.modalidade}</td>
 
 									<td>
