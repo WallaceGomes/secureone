@@ -38,7 +38,6 @@ const NewEquipments = () => {
 							due_date: '',
 							clientId: '',
 							modalidade: '',
-							modelo: '',
 						}}
 						validationSchema={Yup.object({
 							clientId: Yup.string().required('Selecione o cliente'),
@@ -62,7 +61,6 @@ const NewEquipments = () => {
 										type: values.type,
 										due_date: values.due_date,
 										modalidade: values.modalidade,
-										modelo: values.modelo,
 										clientId: values.clientId,
 									}),
 									{
@@ -186,10 +184,10 @@ const NewEquipments = () => {
 									<ErrorMessage name="equipment" />
 								</Error>
 
-								<Label htmlFor="modelo">Modelo</Label>
-								<Field name="modelo" type="text" />
+								<Label htmlFor="type">Modelo</Label>
+								<Field name="type" type="text" />
 								<Error>
-									<ErrorMessage name="modelo" />
+									<ErrorMessage name="type" />
 								</Error>
 
 								<Label htmlFor="version">Versão de Firmware</Label>

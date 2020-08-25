@@ -63,7 +63,7 @@ const Menu = () => {
 				<Link to="/active/users">
 					<MenuItem>Usuários ativos</MenuItem>
 				</Link>
-				<Link to="/">
+				<Link to="/my/equipments">
 					<MenuItem>Equipamentos Watchguard</MenuItem>
 				</Link>
 				<Link to="/my/assets">
