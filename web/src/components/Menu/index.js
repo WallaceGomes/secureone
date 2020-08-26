@@ -20,9 +20,6 @@ const Menu = () => {
 				<Link to="/admin/emailaccounts">
 					<MenuItem>Administrar Emails</MenuItem>
 				</Link>
-				<Link to="/activeusers">
-					<MenuItem>Usuários Ativos</MenuItem>
-				</Link>
 				<Link to="/admin/activeusers">
 					<MenuItem>Admin Usuários Ativos</MenuItem>
 				</Link>

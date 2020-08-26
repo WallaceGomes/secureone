@@ -21,6 +21,24 @@ export const Header = styled.div`
 	padding-left: 40px;
 	font-size: 20px;
 	font-weight: bold;
+
+	display: flex;
+	align-items: center;
+
+	h1 {
+		margin-right: 3rem;
+	}
+
+	button {
+		width: 30%;
+		height: 40px;
+		font-size: 18px;
+		margin-left: 2rem;
+	}
+
+	button:hover {
+		background-color: #00cc00;
+	}
 `;
 
 export const ClientsTable = styled.table`
