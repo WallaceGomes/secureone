@@ -484,6 +484,7 @@ exports.indexAllLicenses = async (req, res, next) => {
 exports.getLicenses = async (req, res, next) => {
 	const { clientId } = req.params;
 
+	console.log(clientId);
 	try {
 		const clientExists = await User.findById({ _id: clientId }, '-password');
 		if (!clientExists) {

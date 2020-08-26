@@ -2,6 +2,8 @@ const { Router } = require('express');
 
 const router = Router();
 const clientController = require('../controllers/client-controller');
+const checkAuth = require('../middleware/check-auth');
+router.use(checkAuth);
 
 router.get('/info/:clientId', clientController.index);
 
@@ -21,7 +23,7 @@ router.get('/assets/:clientId', clientController.getAsset);
 
 router.get('/licenses', clientController.indexAllLicenses);
 
-router.get('/licenses', clientController.getLicenses);
+router.get('/licenses/:clientId', clientController.getLicenses);
 
 router.post('/users/emails/create', clientController.createEmails);
 

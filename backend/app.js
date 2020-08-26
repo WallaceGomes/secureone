@@ -11,8 +11,8 @@ const app = express();
 
 mongoDB.connect();
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/active', activeUsersRoutes);
