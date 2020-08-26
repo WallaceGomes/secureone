@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { Container, AuxCard, DataTable } from './styles';
 import Menu from '../../components/Menu';
 import { useHttpClient } from '../../hooks/http-hook';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { AuthContext } from '../../util/AuthContext';
 
 const ClientEnterpriseAssets = () => {
 	const [assets, setAssets] = useState([]);
 
 	const { sendRequest, isLoading } = useHttpClient();
+	const auth = useContext(AuthContext);
 
 	useEffect(() => {
-		const storedData = JSON.parse(localStorage.getItem('userData'));
-
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 		sendRequest(
-			`http://localhost:3333/api/client/assets/${storedData.userId}`,
+			`http://localhost:3333/api/client/assets/${auth.userId}`,
 			'GET',
 			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
 		).then((response) => {
 			setAssets(response);
-			console.log(response);
 		});
-	}, [sendRequest]);
+	}, [sendRequest, auth]);
 
 	return (
 		<Container>

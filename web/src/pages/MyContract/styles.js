@@ -13,6 +13,6 @@ export const Card = styled.div`
 	margin-left: 20%;
 
 	h1 {
-		color: #000000;
+		margin-bottom: 2rem;
 	}
 `;
