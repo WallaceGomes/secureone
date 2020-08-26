@@ -29,6 +29,9 @@ const Menu = () => {
 				<Link to="/admin/assets">
 					<MenuItem>Administrar ativos</MenuItem>
 				</Link>
+				<Link to="/admin/licenses">
+					<MenuItem>Administrar Licenças</MenuItem>
+				</Link>
 				<div>
 					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
 				</div>

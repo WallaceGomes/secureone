@@ -13,16 +13,11 @@ import { AuthContext } from './util/AuthContext';
 
 import './App.css';
 
-const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Admin = React.lazy(() => import('./pages/Admin'));
-const NewClient = React.lazy(() => import('./pages/NewClient'));
-const EmailAccounts = React.lazy(() => import('./pages/EmailAccounts'));
-const ActiveUsers = React.lazy(() => import('./pages/ActiveUsers'));
 const MyContract = React.lazy(() => import('./pages/MyContract'));
 const ActiveAccounts = React.lazy(() => import('./pages/ActiveAccounts'));
 const ClientActiveUsers = React.lazy(() => import('./pages/ClientActiveUsers'));
-const EnterpriseAssets = React.lazy(() => import('./pages/EnterpriseAssets'));
 const ClientEnterpriseAssets = React.lazy(() =>
 	import('./pages/ClientEnterpriseAssets'),
 );
@@ -33,9 +28,9 @@ const AdminActiveUsers = React.lazy(() => import('./pages/AdminActiveUsers'));
 const AdminEnterpriseAssets = React.lazy(() =>
 	import('./pages/AdminEnterpriseAssets'),
 );
-const NewEquipments = React.lazy(() => import('./pages/NewEquipment'));
 const AdminEquipments = React.lazy(() => import('./pages/AdminEquipments'));
 const ClientEquipments = React.lazy(() => import('./pages/ClientEquipments'));
+const AdminLicenses = React.lazy(() => import('./pages/AdminLicenses'));
 
 let logoutTimer;
 
@@ -108,40 +103,28 @@ const App = () => {
 		if (userRole === 'admin') {
 			routes = (
 				<Switch>
-					<Route path="/" exact>
+					{/* <Route path="/" exact>
 						<Home />
-					</Route>
+					</Route> */}
 					<Route path="/admin" exact>
 						<Admin />
-					</Route>
-					<Route path="/newclient" exact>
-						<NewClient />
-					</Route>
-					<Route path="/new/emailaccounts" exact>
-						<EmailAccounts />
 					</Route>
 					<Route path="/admin/emailaccounts" exact>
 						<AdminEmailAccounts />
 					</Route>
-					<Route path="/activeusers" exact>
-						<ActiveUsers />
-					</Route>
 					<Route path="/admin/activeusers" exact>
 						<AdminActiveUsers />
-					</Route>
-					<Route path="/newasset" exact>
-						<EnterpriseAssets />
 					</Route>
 					<Route path="/admin/assets" exact>
 						<AdminEnterpriseAssets />
 					</Route>
-					<Route path="/new/equipment" exact>
-						<NewEquipments />
+					<Route path="/admin/licenses" exact>
+						<AdminLicenses />
 					</Route>
 					<Route path="/admin/equipments" exact>
 						<AdminEquipments />
 					</Route>
-					<Redirect to="/" />
+					<Redirect to="/admin" />
 				</Switch>
 			);
 		} else {
