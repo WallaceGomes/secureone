@@ -16,7 +16,7 @@ const ClientLicenses = () => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 		sendRequest(
-			`http://localhost:3333/api/client/licenses/${auth.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/licenses/${auth.userId}`,
 			'GET',
 			null,
 			{

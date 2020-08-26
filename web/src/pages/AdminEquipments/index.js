@@ -66,16 +66,26 @@ const AdminEquipments = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/client/equipments', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/client/equipments',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setEquipments(response);
 		});
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setClients(response);
 		});
 	}, [sendRequest, auth]);
@@ -105,9 +115,9 @@ const AdminEquipments = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/equipment/${equipmentId}`,
-				null,
+				`https://secureone-backend.herokuapp.com/api/client/equipment/${equipmentId}`,
 				'DELETE',
+				null,
 				{
 					Authorization: 'Bearer ' + auth.token,
 				},
@@ -156,7 +166,7 @@ const AdminEquipments = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/client/equipments',
+									'https://secureone-backend.herokuapp.com/api/client/equipments',
 									'POST',
 									JSON.stringify({
 										equipment: values.equipment,
@@ -368,7 +378,7 @@ const AdminEquipments = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/client/equipment/${values.equipmentId}`,
+									`https://secureone-backend.herokuapp.com/api/client/equipment/${values.equipmentId}`,
 									'PATCH',
 									JSON.stringify({
 										equipment: values.equipment,

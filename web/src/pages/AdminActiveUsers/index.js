@@ -69,15 +69,25 @@ const AdminActiveUsers = () => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 
-		sendRequest('http://localhost:3333/api/active', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/active',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setUsers(response);
 		});
 
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setClients(response);
 		});
 	}, [sendRequest, auth]);
@@ -108,9 +118,9 @@ const AdminActiveUsers = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/active/${userId}`,
-				null,
+				`https://secureone-backend.herokuapp.com/api/active/${userId}`,
 				'DELETE',
+				null,
 				{
 					Authorization: 'Bearer ' + auth.token,
 				},
@@ -166,7 +176,7 @@ const AdminActiveUsers = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/active/create',
+									'https://secureone-backend.herokuapp.com/api/active/create',
 									'POST',
 									JSON.stringify({
 										name: values.name,
@@ -329,7 +339,7 @@ const AdminActiveUsers = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/active/${values.userId}`,
+									`https://secureone-backend.herokuapp.com/api/active/${values.userId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

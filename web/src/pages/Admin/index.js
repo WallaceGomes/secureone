@@ -65,9 +65,14 @@ const Admin = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setUsers(response);
 		});
 	}, [sendRequest, auth]);
@@ -98,7 +103,7 @@ const Admin = () => {
 
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/users/clients/resetpass/${user._id}`,
+				`https://secureone-backend.herokuapp.com/api/users/clients/resetpass/${user._id}`,
 				null,
 				'PATCH',
 				{
@@ -121,9 +126,9 @@ const Admin = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/users/clients/${clientId}`,
-				null,
+				`https://secureone-backend.herokuapp.com/api/users/clients/${clientId}`,
 				'DELETE',
+				null,
 				{
 					Authorization: 'Bearer ' + auth.token,
 				},
@@ -174,7 +179,7 @@ const Admin = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/users/create',
+									'https://secureone-backend.herokuapp.com/api/users/create',
 									'POST',
 									JSON.stringify({
 										name: values.clientName,
@@ -312,7 +317,7 @@ const Admin = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/users/clients/${values.clientId}`,
+									`https://secureone-backend.herokuapp.com/api/users/clients/${values.clientId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

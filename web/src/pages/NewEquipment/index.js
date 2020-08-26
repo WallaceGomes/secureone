@@ -17,11 +17,13 @@ const NewEquipments = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+		).then((response) => {
+			setClients(response);
+		});
 	}, [sendRequest]);
 
 	return (
@@ -53,7 +55,7 @@ const NewEquipments = () => {
 							//http://localhost:3333
 							try {
 								await sendRequest(
-									'http://localhost:3333/api/client/equipments',
+									'https://secureone-backend.herokuapp.com/api/client/equipments',
 									'POST',
 									JSON.stringify({
 										equipment: values.equipment,

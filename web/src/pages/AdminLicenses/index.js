@@ -66,15 +66,25 @@ const AdminLicenses = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/client/licenses', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/client/licenses',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setLicenses(response);
 		});
 
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setClients(response);
 		});
 	}, [sendRequest, auth]);
@@ -106,7 +116,7 @@ const AdminLicenses = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/licenses/${licenseId}`,
+				`https://secureone-backend.herokuapp.com/api/client/licenses/${licenseId}`,
 				'DELETE',
 				null,
 				{
@@ -158,7 +168,7 @@ const AdminLicenses = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/client/licenses',
+									'https://secureone-backend.herokuapp.com/api/client/licenses',
 									'POST',
 									JSON.stringify({
 										brand: values.brand,
@@ -312,7 +322,7 @@ const AdminLicenses = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/client/licenses/${values.licenseId}`,
+									`https://secureone-backend.herokuapp.com/api/client/licenses/${values.licenseId}`,
 									'PATCH',
 									JSON.stringify({
 										brand: values.brand,

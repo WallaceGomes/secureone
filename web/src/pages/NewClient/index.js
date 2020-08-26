@@ -46,7 +46,7 @@ const NewClient = () => {
 						//http://localhost:3333
 						try {
 							await sendRequest(
-								'http://localhost:3333/api/users/create',
+								'https://secureone-backend.herokuapp.com/api/users/create',
 								'POST',
 								JSON.stringify({
 									name: values.clientName,

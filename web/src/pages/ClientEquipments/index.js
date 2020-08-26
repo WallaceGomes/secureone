@@ -16,7 +16,7 @@ const ClientEquipments = () => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 		sendRequest(
-			`http://localhost:3333/api/client/equipments/${auth.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/equipments/${auth.userId}`,
 			'GET',
 			null,
 			{

@@ -16,11 +16,13 @@ const EnterpriseAssets = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+		).then((response) => {
+			setClients(response);
+		});
 	}, [sendRequest]);
 
 	return (
@@ -66,7 +68,7 @@ const EnterpriseAssets = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/client/assets',
+									'https://secureone-backend.herokuapp.com/api/client/assets',
 									'POST',
 									JSON.stringify({
 										clientId: values.clientId,

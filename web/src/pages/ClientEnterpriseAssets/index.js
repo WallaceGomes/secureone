@@ -16,7 +16,7 @@ const ClientEnterpriseAssets = () => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 		sendRequest(
-			`http://localhost:3333/api/client/assets/${auth.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/assets/${auth.userId}`,
 			'GET',
 			null,
 			{

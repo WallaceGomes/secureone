@@ -66,15 +66,25 @@ const AdminEmailAccounts = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/client/active/emails', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/client/active/emails',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setAccounts(response);
 		});
 
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
-			Authorization: 'Bearer ' + auth.token,
-		}).then((response) => {
+		sendRequest(
+			'https://secureone-backend.herokuapp.com/api/users/clients',
+			'GET',
+			null,
+			{
+				Authorization: 'Bearer ' + auth.token,
+			},
+		).then((response) => {
 			setClients(response);
 		});
 	}, [sendRequest, auth]);
@@ -102,9 +112,9 @@ const AdminEmailAccounts = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/active/email/${accountId}`,
-				null,
+				`https://secureone-backend.herokuapp.com/api/client/active/email/${accountId}`,
 				'DELETE',
+				null,
 				{
 					Authorization: 'Bearer ' + auth.token,
 				},
@@ -149,7 +159,7 @@ const AdminEmailAccounts = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/client/users/emails/create',
+									'https://secureone-backend.herokuapp.com/api/client/users/emails/create',
 									'POST',
 									JSON.stringify({
 										name: values.name,
@@ -268,7 +278,7 @@ const AdminEmailAccounts = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/client/active/email/${values.accountId}`,
+									`https://secureone-backend.herokuapp.com/api/client/active/email/${values.accountId}`,
 									'PATCH',
 									JSON.stringify({
 										name: values.name,

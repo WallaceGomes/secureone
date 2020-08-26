@@ -16,7 +16,7 @@ const ActiveAccounts = () => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
 		sendRequest(
-			`http://localhost:3333/api/client/active/emails/${auth.userId}`,
+			`https://secureone-backend.herokuapp.com/api/client/active/emails/${auth.userId}`,
 			'GET',
 			null,
 			{

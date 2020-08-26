@@ -89,7 +89,7 @@ const Login = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/users/changepass',
+									'https://secureone-backend.herokuapp.com/api/users/changepass',
 									'PATCH',
 									JSON.stringify({
 										email: values.email,
@@ -177,7 +177,7 @@ const Login = () => {
 							//http://localhost:3333
 							try {
 								const response = await sendRequest(
-									'http://localhost:3333/api/users/login',
+									'https://secureone-backend.herokuapp.com/api/users/login',
 									'POST',
 									JSON.stringify({
 										email: values.email,
@@ -187,7 +187,6 @@ const Login = () => {
 										'Content-Type': 'application/json',
 									},
 								);
-								console.log(response);
 								setSubmitting(false);
 								if (!response) {
 									setModalText('Por medidada de segurança troque sua senha!');
