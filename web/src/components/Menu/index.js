@@ -23,14 +23,8 @@ const Menu = () => {
 				<Link to="/admin/activeusers">
 					<MenuItem>Admin Usuários Ativos</MenuItem>
 				</Link>
-				<Link to="/new/equipment">
-					<MenuItem>Equipamentos Watchguard</MenuItem>
-				</Link>
 				<Link to="/admin/equipments">
 					<MenuItem>Admin Equips Watchguard</MenuItem>
-				</Link>
-				<Link to="/newasset">
-					<MenuItem>Novo ativo empresa</MenuItem>
 				</Link>
 				<Link to="/admin/assets">
 					<MenuItem>Administrar ativos</MenuItem>

@@ -30,7 +30,7 @@ export const Header = styled.div`
 	}
 
 	button {
-		width: 20%;
+		width: 30%;
 		height: 40px;
 		font-size: 18px;
 		margin-left: 2rem;
