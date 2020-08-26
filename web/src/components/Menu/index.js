@@ -57,6 +57,9 @@ const Menu = () => {
 				<Link to="/my/assets">
 					<MenuItem>Ativos da empresa</MenuItem>
 				</Link>
+				<Link to="/my/licenses">
+					<MenuItem>Licenças</MenuItem>
+				</Link>
 				<div>
 					<LogoutButtom onClick={auth.logout}>Logout</LogoutButtom>
 				</div>
