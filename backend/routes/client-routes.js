@@ -19,11 +19,17 @@ router.get('/assets', clientController.indexAssets);
 
 router.get('/assets/:clientId', clientController.getAsset);
 
+router.get('/licenses', clientController.indexAllLicenses);
+
+router.get('/licenses', clientController.getLicenses);
+
 router.post('/users/emails/create', clientController.createEmails);
 
 router.post('/assets', clientController.createAsset);
 
 router.post('/equipments', clientController.createEquipment);
+
+router.post('/licenses', clientController.createLicense);
 
 router.patch('/active/email/:accountId', clientController.editEmailAccount);
 
@@ -31,10 +37,14 @@ router.patch('/assets/:assetId', clientController.editAsset);
 
 router.patch('/equipment/:equipmentId', clientController.editEquipment);
 
+router.patch('/licenses/:licenseId', clientController.editLicense);
+
 router.delete('/assets/:assetId', clientController.deleteAsset);
 
 router.delete('/active/email/:accountId', clientController.deleteEmailAccount);
 
 router.delete('/equipment/:equipmentId', clientController.deleteEquipment);
+
+router.delete('/licenses/:licenseId', clientController.deleteLicense);
 
 module.exports = router;

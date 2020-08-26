@@ -4,6 +4,7 @@ const EmailsUser = require('../models/clientEmailsUser');
 const EnterpriseAsset = require('../models/enterpriseAsset');
 const HttpError = require('../models/http-error');
 const Equipment = require('../models/equipments');
+const License = require('../models/license');
 const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
@@ -199,8 +200,6 @@ exports.createAsset = async (req, res, next) => {
 		clientId,
 	});
 
-	console.log(createdAsset);
-
 	try {
 		await createdAsset.save();
 	} catch (err) {
@@ -359,7 +358,7 @@ exports.getEquipments = async (req, res, next) => {
 		return res.status(200).json(equips);
 	} catch (err) {
 		console.error(err);
-		const error = new HttpError('Error trying to find the assets', 500);
+		const error = new HttpError('Error trying to find the equipments', 500);
 		return next(error);
 	}
 };
@@ -468,4 +467,159 @@ exports.deleteEquipment = async (req, res, next) => {
 	}
 
 	res.status(200).json({ message: 'Equipment deleted!' });
+};
+
+exports.indexAllLicenses = async (req, res, next) => {
+	try {
+		const allLicenses = await License.find();
+
+		return res.status(200).json(allLicenses);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the licenses', 500);
+		return next(error);
+	}
+};
+
+exports.getLicenses = async (req, res, next) => {
+	const { clientId } = req.params;
+
+	try {
+		const clientExists = await User.findById({ _id: clientId }, '-password');
+		if (!clientExists) {
+			return res.status(404).json('User not exist');
+		}
+
+		const licenses = await License.find({ clientId: clientId });
+
+		return res.status(200).json(licenses);
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to find the licenses', 500);
+		return next(error);
+	}
+};
+
+exports.createLicense = async (req, res, next) => {
+	const {
+		clientId,
+		brand,
+		available_licenses,
+		used_licenses,
+		used_equipments,
+		due_date,
+		provider,
+		management,
+	} = req.body;
+
+	try {
+		const checkUser = await User.findOne({ _id: clientId });
+		if (!checkUser) {
+			const error = new HttpError('User(client) not exists', 422);
+			return next(error);
+		}
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Connection error, user(client) check DB');
+		return next(error);
+	}
+
+	const createdLicense = new License({
+		clientId,
+		brand,
+		available_licenses,
+		used_licenses,
+		used_equipments,
+		due_date,
+		provider,
+		management,
+	});
+
+	try {
+		await createdLicense.save();
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Create equipment failed (save)', 500);
+		return next(error);
+	}
+
+	return res.status(200).json(createdLicense);
+};
+
+exports.deleteLicense = async (req, res, next) => {
+	const { licenseId } = req.params;
+
+	let license;
+
+	try {
+		license = await License.findById({ _id: licenseId });
+
+		if (!license) {
+			const error = new HttpError(
+				'Could not find any license for the provided id',
+				404,
+			);
+			return next(error);
+		}
+	} catch (err) {
+		const error = new HttpError('Error trying to find the license', 500);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await license.remove({ session: sess });
+		await sess.commitTransaction();
+	} catch (err) {
+		const error = new HttpError('Error deleting the license, DB session', 500);
+		return next(error);
+	}
+
+	res.status(200).json({ message: 'License deleted!' });
+};
+
+exports.editLicense = async (req, res, next) => {
+	const { licenseId } = req.params;
+	const {
+		brand,
+		available_licenses,
+		used_licenses,
+		used_equipments,
+		due_date,
+		provider,
+		management,
+	} = req.body;
+
+	const updatedLicense = {
+		brand,
+		available_licenses,
+		used_licenses,
+		used_equipments,
+		due_date,
+		provider,
+		management,
+		updated_at: Date.now(),
+	};
+
+	try {
+		const license = await License.findOneAndUpdate(
+			{ _id: licenseId },
+			updatedLicense,
+		);
+
+		if (!license) {
+			const error = new HttpError(
+				'Could not find the license for the provided ID',
+				404,
+			);
+			return next(error);
+		}
+
+		res.status(200).json({ message: 'License updated!' });
+	} catch (err) {
+		console.error(err);
+		const error = new HttpError('Error trying to edit the license', 500);
+		return next(error);
+	}
 };
