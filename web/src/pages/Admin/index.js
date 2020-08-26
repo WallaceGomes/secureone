@@ -255,6 +255,7 @@ const Admin = () => {
 								</Error>
 							</div>
 							<Button type="submit">Cadastrar</Button>
+							<Button onClick={switchNewClientMode}> Voltar </Button>
 						</Form>
 					</Formik>
 				</Card>
