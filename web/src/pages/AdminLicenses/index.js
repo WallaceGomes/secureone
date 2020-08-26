@@ -106,9 +106,9 @@ const AdminLicenses = () => {
 		//http://localhost:3333
 		try {
 			const response = await sendRequest(
-				`http://localhost:3333/api/client/license/${licenseId}`,
-				null,
+				`http://localhost:3333/api/client/licenses/${licenseId}`,
 				'DELETE',
+				null,
 				{
 					Authorization: 'Bearer ' + auth.token,
 				},
@@ -154,7 +154,6 @@ const AdminLicenses = () => {
 							management: Yup.string().required('Campo obrigatório'),
 						})}
 						onSubmit={async (values, { setSubmitting }) => {
-							console.log(values);
 							//https://secureone-backend.herokuapp.com
 							//http://localhost:3333
 							try {
@@ -289,7 +288,7 @@ const AdminLicenses = () => {
 							used_equipments: initialFormValues.used_equipments,
 							due_date: initialFormValues.due_date,
 							provider: initialFormValues.provider,
-							licenseId: initialFormValues._id,
+							licenseId: initialFormValues.licenseId,
 							management: initialFormValues.management,
 						}}
 						validationSchema={Yup.object({
@@ -313,7 +312,7 @@ const AdminLicenses = () => {
 								//https://secureone-backend.herokuapp.com
 								//http://localhost:3333
 								await sendRequest(
-									`http://localhost:3333/api/client/license/${values.licenseId}`,
+									`http://localhost:3333/api/client/licenses/${values.licenseId}`,
 									'PATCH',
 									JSON.stringify({
 										brand: values.brand,
@@ -451,6 +450,11 @@ const AdminLicenses = () => {
 					</tbody>
 					{licenses &&
 						licenses.map((license) => {
+							const dueDate = new Date(license.due_date);
+							const date = dueDate.getDate();
+							const month = dueDate.getMonth();
+							const year = dueDate.getFullYear();
+							const dateString = date + 1 + '/' + (month + 1) + '/' + year;
 							//erro causado por falta de um tbody em volta da tabela
 							return (
 								<tr key={license._id}>
@@ -458,7 +462,7 @@ const AdminLicenses = () => {
 									<td>{license.available_licenses}</td>
 									<td>{license.used_licenses}</td>
 									<td>{license.used_equipments}</td>
-									<td>{license.due_date}</td>
+									<td>{dateString}</td>
 									<td>{license.provider}</td>
 									<td>{license.management}</td>
 									<td>
