@@ -9,13 +9,15 @@ module.exports = (req, res, next) => {
 
 	try {
 		// Authorization: 'Bearer TOKEN'
-		const token = req.headres.authorization.split(' ')[1];
+
+		const token = req.headers.authorization.split(' ')[1];
 		if (!token) {
 			throw new Error('Authentication failed! auth-middleware');
 		}
 
 		const decodedToken = jwt.verify(token, process.env.JWT_KEY);
 		req.userData = { userId: decodedToken.userId };
+		next();
 	} catch (err) {
 		console.error(err);
 		const error = new HttpError('Authentication failed!', 403);

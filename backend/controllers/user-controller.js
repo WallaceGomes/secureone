@@ -13,7 +13,6 @@ exports.index = async (req, res, next) => {
 		const error = new HttpError('Could not find any user!', 500);
 		return next(error);
 	}
-
 	res.status(200).json(users);
 };
 
