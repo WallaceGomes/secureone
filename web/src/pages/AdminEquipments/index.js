@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import Modal from 'react-modal';
 
@@ -14,6 +14,7 @@ import {
 import Menu from '../../components/Menu';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useHttpClient } from '../../hooks/http-hook';
+import { AuthContext } from '../../util/AuthContext';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -55,6 +56,8 @@ const AdminEquipments = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalText, setModalText] = useState('');
 
+	const auth = useContext(AuthContext);
+
 	function switchModalState() {
 		setIsOpen((prevMode) => !prevMode);
 	}
@@ -63,21 +66,19 @@ const AdminEquipments = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest(
-			'http://localhost:3333/api/client/equipments',
-			'GET',
-			null,
-		).then((response) => {
+		sendRequest('http://localhost:3333/api/client/equipments', 'GET', null, {
+			Authorization: 'Bearer ' + auth.token,
+		}).then((response) => {
 			setEquipments(response);
 		});
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
-	}, [sendRequest]);
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
+			Authorization: 'Bearer ' + auth.token,
+		}).then((response) => {
+			setClients(response);
+		});
+	}, [sendRequest, auth]);
 
 	const switchNewEquipMode = () => {
 		setIsNewEquiMode((prevMode) => !prevMode);
@@ -105,8 +106,11 @@ const AdminEquipments = () => {
 		try {
 			const response = await sendRequest(
 				`http://localhost:3333/api/client/equipment/${equipmentId}`,
-				'DELETE',
 				null,
+				'DELETE',
+				{
+					Authorization: 'Bearer ' + auth.token,
+				},
 			);
 			const index = equipments.findIndex(
 				(equipment) => equipment._id === equipmentId,
@@ -164,6 +168,7 @@ const AdminEquipments = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								const newEquip = {
@@ -374,6 +379,7 @@ const AdminEquipments = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								const editedEquipment = {

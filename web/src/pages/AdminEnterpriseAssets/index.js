@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import Modal from 'react-modal';
 
@@ -15,6 +15,7 @@ import {
 import Menu from '../../components/Menu';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useHttpClient } from '../../hooks/http-hook';
+import { AuthContext } from '../../util/AuthContext';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -56,6 +57,8 @@ const AdminEnterpriseAssets = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalText, setModalText] = useState('');
 
+	const auth = useContext(AuthContext);
+
 	function switchModalState() {
 		setIsOpen((prevMode) => !prevMode);
 	}
@@ -64,20 +67,20 @@ const AdminEnterpriseAssets = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setClients(response);
-			},
-		);
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
+			Authorization: 'Bearer ' + auth.token,
+		}).then((response) => {
+			setClients(response);
+		});
 
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/client/assets', 'GET', null).then(
-			(response) => {
-				setAssets(response);
-			},
-		);
-	}, [sendRequest]);
+		sendRequest('http://localhost:3333/api/client/assets', 'GET', null, {
+			Authorization: 'Bearer ' + auth.token,
+		}).then((response) => {
+			setAssets(response);
+		});
+	}, [sendRequest, auth]);
 
 	const switchNewAssetMode = () => {
 		setIsNewAssetMode((prevMode) => !prevMode);
@@ -112,8 +115,11 @@ const AdminEnterpriseAssets = () => {
 		try {
 			const response = await sendRequest(
 				`http://localhost:3333/api/client/assets/${assetId}`,
-				'DELETE',
 				null,
+				'DELETE',
+				{
+					Authorization: 'Bearer ' + auth.token,
+				},
 			);
 			const index = assets.findIndex((asset) => asset._id === assetId);
 			if (index !== -1) {
@@ -190,6 +196,7 @@ const AdminEnterpriseAssets = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								const newAsset = {
@@ -455,6 +462,7 @@ const AdminEnterpriseAssets = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								const editedAsset = {

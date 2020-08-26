@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AiFillEdit, AiFillDelete, AiOutlineRollback } from 'react-icons/ai';
 import Modal from 'react-modal';
 
@@ -14,6 +14,7 @@ import {
 import Menu from '../../components/Menu';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useHttpClient } from '../../hooks/http-hook';
+import { AuthContext } from '../../util/AuthContext';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -54,6 +55,8 @@ const Admin = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [modalText, setModalText] = useState('');
 
+	const auth = useContext(AuthContext);
+
 	function switchModalState() {
 		setIsOpen((prevMode) => !prevMode);
 	}
@@ -62,12 +65,12 @@ const Admin = () => {
 	useEffect(() => {
 		//https://secureone-backend.herokuapp.com
 		//http://localhost:3333
-		sendRequest('http://localhost:3333/api/users/clients', 'GET', null).then(
-			(response) => {
-				setUsers(response);
-			},
-		);
-	}, [sendRequest]);
+		sendRequest('http://localhost:3333/api/users/clients', 'GET', null, {
+			Authorization: 'Bearer ' + auth.token,
+		}).then((response) => {
+			setUsers(response);
+		});
+	}, [sendRequest, auth]);
 
 	const switchEditModeHandler = (user) => {
 		if (user) {
@@ -96,8 +99,11 @@ const Admin = () => {
 		try {
 			const response = await sendRequest(
 				`http://localhost:3333/api/users/clients/resetpass/${user._id}`,
-				'PATCH',
 				null,
+				'PATCH',
+				{
+					Authorization: 'Bearer ' + auth.token,
+				},
 			);
 
 			if (response.message === 'Password reset success') {
@@ -116,8 +122,11 @@ const Admin = () => {
 		try {
 			const response = await sendRequest(
 				`http://localhost:3333/api/users/clients/${clientId}`,
-				'DELETE',
 				null,
+				'DELETE',
+				{
+					Authorization: 'Bearer ' + auth.token,
+				},
 			);
 			const index = users.findIndex((user) => user._id === clientId);
 			if (index !== -1) {
@@ -178,6 +187,7 @@ const Admin = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								setSubmitting(false);
@@ -315,6 +325,7 @@ const Admin = () => {
 									}),
 									{
 										'Content-Type': 'application/json',
+										Authorization: 'Bearer ' + auth.token,
 									},
 								);
 								const editedUser = {
